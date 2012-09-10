@@ -52,14 +52,15 @@
 	      {{include}}
 	      {{end}}
         </div><!--/span-->
-        <!--div class="span3">
+        <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Tables</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
+              {{if auth.has_membership('w2a_root'):}}
+              <li class="nav-header">w2a Root</li>
+              <a href="{{=URL('plugin_web2admin','permissions')}}">Manage permissions</a>
+              {{pass}}
             </ul>
           </div><!--/.well -->
         </div--><!--/span-->
