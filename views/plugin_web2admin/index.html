@@ -1,6 +1,6 @@
 {{extend 'plugin_web2admin/layout.html'}}
 
-{{if len(tables)>0:}}
+{{if not tables:}}
 <table class="table table-hover">
   <thead>
     <tr>
@@ -36,5 +36,5 @@
   </tbody>
 </table>
 {{else:}}
-<p>{{=T('Sorry, you do not have permissions to access any tables.')}}</p>
+<p>{{=T('Sorry, you do not have permission to access any tables.')}}</p>
 {{pass}}
