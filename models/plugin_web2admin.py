@@ -8,6 +8,12 @@ auth_tables = ('auth_user',
                'auth_cas'
 )
 
+perms = ('w2a_read',
+               'w2a_create',
+               'w2a_select',
+               'w2a_edit',
+               'w2a_delete')
+
 def check_access(table, perm):
     return auth.is_logged_in() and \
         (auth.has_membership(role='w2a_root') or \

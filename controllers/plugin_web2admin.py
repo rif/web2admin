@@ -32,11 +32,11 @@ def permissions():
               default=True,
               widget=SQLFORM.widgets.options.widget),
         Field('users', 'list:int',
-              requires = IS_IN_DB(db, 'auth_user.id', '%(first_name)s %(last_name)s', zero=T('choose one'), multiple=True)),
+              requires = IS_IN_DB(db, 'auth_user.id', '%(first_name)s %(last_name)s', multiple=True)),
         Field('tables', 'list:string',
-              requires=IS_IN_SET(db.tables, zero=T('choose one'), multiple=True)),
+              requires=IS_IN_SET(db.tables, multiple=True)),
         Field('permissions', 'list:string',
-              requires= IS_IN_SET(('w2a_read', 'w2a_create', 'w2a_select', 'w2a_edit', 'w2a_delete'), multiple=True ),
+              requires= IS_IN_SET(perms, multiple=True ),
               widget=SQLFORM.widgets.checkboxes.widget)
     )
     if form.process().accepted:
