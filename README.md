@@ -36,4 +36,4 @@ Install the plugin ;)
 Give fine-grained permissions to particular users for specific tables:
  - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users. If a user is in w2a_root group he/she has a special permissions controller for adding/permissions permissions to the users (she/he can still perform this through regular appadmin).
  
-
+Access http://localhost:8000/yourapp/plugin_web2admin
