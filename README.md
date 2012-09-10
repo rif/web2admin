@@ -27,10 +27,13 @@ Just use any of the installation procedures and overwrite the plugin content in 
 
 Usage
 -----
-Give full rights to particular users:
- - After installing the plugin create a group w2a_manager and add the manager users to this grup. 
+Install the plugin ;)
+
+- If a user is in the w2a_root group then it has full rights including adding permissions or changing the groups of other users.
+
+- If a user is in the w2a_manager group then it has all permissions for all tables except auth tables (no changing permissions for other users).
 
 Give fine-grained permissions to particular users for specific tables:
- - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users
+ - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users. If a user is in w2a_root group he/she has a special permissions controller for adding/permissions permissions to the users (she/he can still perform this through regular appadmin).
  
 

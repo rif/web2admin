@@ -1,0 +1,22 @@
+{{extend 'plugin_web2admin/layout.html'}}
+
+{{=form.custom.begin}}
+{{=form.custom.widget.action}}
+<div>{{=form.custom.widget.users}}
+{{=form.custom.widget.tables}}</div>
+Permissions: <div>{{=form.custom.widget.permissions}}</div>
+{{=form.custom.submit}}
+{{=form.custom.end}}
+
+ <script>
+   $(function() {
+   $("#no_table_users").attr("style","");
+   $("#no_table_tables").attr("style","");
+   $("#no_table_users").select2({
+   placeholder: "Select one or more Users",
+   });
+   $("#no_table_tables").select2({
+   placeholder: "Select one or more Tables",
+   });
+   });
+ </script>
