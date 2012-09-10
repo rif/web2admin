@@ -5,10 +5,10 @@ This is a simple [web2py|http://www.web2py.com] administration plugin.
 
 It is minimal yet functional using the features provided by web2py SQLFORM.smartgrid.
 
-It is takes security very serious and uses both groups and permissions for fine-grained access control.
+It is takes security very seriously and uses both groups and permissions for fine-grained access control.
 
-Instalation
------------
+Installation
+------------
  - Download the latest version from [here|https://github.com/rif/web2admin/downloads] and install it via the web2py interface.
  
 or 
@@ -19,16 +19,14 @@ or
  
 or
   
- - Clone the web2admin repo and copy content in your app ecluding the .git and .gitignore. 
+ - Clone the web2admin repo and copy content in your app excluding the .git and .gitignore. 
 
 Update
 ------
-
 Just use any of the installation procedures and overwrite the plugin content in your web2py app. 
 
 Usage
 -----
-
 Give full rights to particular users:
  - After installing the plugin create a group w2a_manager and add the manager users to this grup. 
 
