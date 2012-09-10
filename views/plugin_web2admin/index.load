@@ -1,0 +1,3 @@
+{{for table in tables:}}
+<li><a href="{{=URL('plugin_web2admin','view_table.html', args=table)}}">{{=table}}</a></li>
+{{pass}}
