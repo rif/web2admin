@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]><html class="ie ie6 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<html lang="{{=T.accepted_language or 'en'}}">
+  <head>
+    <meta charset="utf-8">
+     <!--[if IE]>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+      <![endif]-->
+    <title>web2admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="web2py administration">
+    {{
+    response.files.append(URL('static','plugin_web2admin/css/bootstrap.min.css'))
+    response.files.append(URL('static','plugin_web2admin/css/bootstrap-responsive.min.css'))
+    response.files.append(URL('static','plugin_web2admin/css/web2py.css'))
+    response.files.append(URL('static','plugin_web2admin/css/web2py_bootstrap.css'))
+    }}
+    {{include 'plugin_web2admin/web2py_ajax.html'}}
+    <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">web2admin</a>
+          <div class="navbar">
+              <span class="auth-navbar pull-right" id="navbar">
+                {{='auth' in globals() and auth.navbar() or ''}}
+              </span>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          {{block center}}
+	      {{include}}
+	      {{end}}
+        </div><!--/span-->
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Tables</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <div id="poweredBy" class="pull-right">
+	      {{=T('Powered by')}}
+	      <a href="http://www.web2py.com/">web2py</a>
+	    </div>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+<script src="{{=URL('static','plugin_web2admin/js/jquery.js')}}"></script>
+<script src="{{=URL('static','plugin_web2admin/js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

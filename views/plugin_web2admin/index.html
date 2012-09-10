@@ -1,0 +1,36 @@
+{{extend 'plugin_web2admin/layout.html'}}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>
+        {{=T('Table')}}
+      </th>
+      <th>
+        {{=T('Count')}}
+      </th>
+      <th>
+        {{=T('Actions')}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{for table in tables:}}
+    <tr>
+      <td>
+        {{=table}}
+      </td>
+      <td>
+        {{=db(db[table]).count()}}
+      </td>
+      <td>
+        <a class="w2p_trap button btn"
+           href="{{=URL('plugin_web2admin','view_table', args=table)}}">
+          <span class="icon magnifier icon-zoom-in"></span>
+          <span class="buttontext button" title="View">{{=T('View')}}</span></a>
+</a>
+      </td>
+    </tr>
+    {{pass}}
+  </tbody>
+</table>
