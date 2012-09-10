@@ -13,7 +13,7 @@ Installation
  
 or 
 
- - Download the [master tip](https://github.com/rif/web2admin/tarball/master), renamed to web2py.plugin.web2admin.w2p and install it via the web2py interface.
+ - Download the [master tip](https://github.com/rif/web2admin/tarball/master), rename it to web2py.plugin.web2admin.w2p and install it via the web2py interface.
  
  The master branch will always contain to the latest stable version (the development will be done on another branch).
  
