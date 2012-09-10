@@ -1,7 +1,7 @@
 web2admin
 =========
 
-This is a simple [web2py|http://www.web2py.com] administration plugin.
+This is a simple [web2py](http://www.web2py.com) administration plugin.
 
 It is minimal yet functional using the features provided by web2py SQLFORM.smartgrid.
 
@@ -9,11 +9,11 @@ It is takes security very seriously and uses both groups and permissions for fin
 
 Installation
 ------------
- - Download the latest version from [here|https://github.com/rif/web2admin/downloads] and install it via the web2py interface.
+ - Download the latest version from [here](https://github.com/rif/web2admin/downloads) and install it via the web2py interface.
  
 or 
 
- - Download [the tip|https://github.com/rif/web2admin/tarball/master], renamed to web2py.plugin.web2admin.w2p and install it via the web2py interface.
+ - Download the [master tip](https://github.com/rif/web2admin/tarball/master), renamed to web2py.plugin.web2admin.w2p and install it via the web2py interface.
  
  The master branch will always contain to the latest stable version (the development will be done on another branch).
  
