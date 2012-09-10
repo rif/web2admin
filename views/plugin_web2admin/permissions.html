@@ -2,8 +2,7 @@
 
 {{=form.custom.begin}}
 {{=form.custom.widget.action}}
-<div>{{=form.custom.widget.users}}
-{{=form.custom.widget.tables}}</div>
+<div>{{=form.custom.widget.users}} {{=form.custom.widget.tables}}</div>
 <div>Permissions: {{=form.custom.widget.permissions}}</div>
 {{=form.custom.submit}}
 {{=form.custom.end}}
@@ -12,9 +11,11 @@
    $(function() {
    $("#no_table_users").select2({
    placeholder: "Select one or more Users",
+   width: "300px",
    });
    $("#no_table_tables").select2({
    placeholder: "Select one or more Tables",
+   width: "300px",
    });
    });
  </script>
