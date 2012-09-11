@@ -5,7 +5,7 @@ This is a simple [web2py](http://www.web2py.com) administration plugin.
 
 It is minimal yet functional using the features provided by web2py SQLFORM.smartgrid.
 
-It is takes security very seriously and uses both groups and permissions for fine-grained access control.
+It takes security very seriously and uses both groups and permissions for fine-grained access control.
 
 Installation
 ------------
@@ -34,6 +34,6 @@ Install the plugin ;)
 - If a user is in the w2a_manager group then it has all permissions for all tables except auth tables (no changing permissions for other users).
 
 Give fine-grained permissions to particular users for specific tables:
- - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users. If a user is in w2a_root group he/she has a special permissions controller for adding/permissions permissions to the users (she/he can still perform this through regular appadmin).
+ - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users. If a user is in w2a_root group it has a special controller (permissions) for adding/removing permissions to the users (it can still perform this through regular appadmin).
  
 Access http://localhost:8000/yourapp/plugin_web2admin
