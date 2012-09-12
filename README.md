@@ -46,12 +46,12 @@ Paste the following configuration lines in your model file
 
 Configure the number of items per page:
 
- plugins.web2admin.items_per_page = 5 (default 20)
+    plugins.web2admin.items_per_page = 5 (default 20)
 
 Add extra links in sidebar:
 
- plugins.web2admin.custom_sidebar_title = "My Links"
- plugins.web2admin.extra_sidebar_links = [
-    A('External link', _href='http://www.youhe.ro'),
-    A('Back to homepage', _href=URL('default', 'index', args=0)),
- ]
+    plugins.web2admin.custom_sidebar_title = "My Links"
+    plugins.web2admin.extra_sidebar_links = [
+        A('External link', _href='http://www.youhe.ro'),
+        A('Back to homepage', _href=URL('default', 'index', args=0)),
+    ]
