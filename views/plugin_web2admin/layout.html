@@ -55,11 +55,18 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Tables</li>
+              <li class="nav-header">Navigation</li>
+              <li><a href="{{=URL('plugin_web2admin', 'index')}}">{{=T('home')}}</a></li>
               {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
               {{if auth.has_membership('w2a_root'):}}
               <li class="nav-header">w2a Root</li>
               <a href="{{=URL('plugin_web2admin','permissions')}}">Manage permissions</a>
+              {{pass}}
+              {{if plugins.web2admin.custom_sidebar_title:}}
+              <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
+              {{for link in plugins.web2admin.custom_sidebar_links:}}
+              <li>{{=link}}<li>
+              {{pass}}
               {{pass}}
             </ul>
           </div><!--/.well -->

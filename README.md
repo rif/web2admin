@@ -37,3 +37,19 @@ Give fine-grained permissions to particular users for specific tables:
  - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete) for the desired tables and authorized users. If a user is in w2a_root group it has a special controller (permissions) for adding/removing permissions to the users (it can still perform this through regular appadmin).
  
 Access http://localhost:8000/yourapp/plugin_web2admin
+
+Configuration
+-------------
+
+Paste the following configuration lines in your model file
+(e.g. db.py) to change web2admin behavior:
+
+Configure the number of items per page:
+ plugins.web2admin.items_per_page = 5
+
+Add extra links in sidebar:
+ plugins.web2admin.custom_sidebar_title = "My Links"
+ plugins.web2admin.extra_sidebar_links = [
+    A('External link', _href='http://www.youhe.ro'),
+    A('Back to homepage', _href=URL('default', 'index', args=0)),
+ ]

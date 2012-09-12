@@ -12,6 +12,7 @@ def  view_table():
                              searchable = check_access(table, 'w2a_select'),
                              editable = check_access(table, 'w2a_edit'),
                              deletable = check_access(table, 'w2a_delete'),
+                             paginate = plugins.web2admin.items_per_page
                              #selectable = lambda ids: del_action(table, ids)
     )
     return locals()

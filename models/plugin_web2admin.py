@@ -20,3 +20,10 @@ def check_access(table, perm):
             (auth.has_membership(role='w2a_manager') and \
              table not in auth_tables) or \
         auth.has_permission(perm, table, 0))
+
+plugins.web2admin.items_per_page = 1
+plugins.web2admin.custom_sidebar_title = "My Links"
+plugins.web2admin.custom_sidebar_links = [
+    A('Google', _href='http://google.com'),
+    A('New User', _href=URL('new', args='users')),
+]
