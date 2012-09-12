@@ -9,14 +9,15 @@ It takes security very seriously and uses both groups and permissions for fine-g
 
 Installation
 ------------
- - Download the [master tip](https://github.com/rif/web2admin/tarball/master), rename it to web2py.plugin.web2admin.w2p and install it via the web2py interface.
- 
- The master branch will always contain to the latest stable version (the development will be done on another branch).
+ - Download the [master tip](https://github.com/downloads/rif/web2admin/web2py.plugin.web2admin.w2p) and install it via the web2py interface.
  
 or
   
  - Clone the web2admin repo and copy content in your app excluding the .git and .gitignore. 
 
+ The master branch will always contain to the latest stable version
+ (the development will be done on another branch).
+ 
 Update
 ------
 Just use any of the installation procedures and overwrite the plugin content in your web2py app. 
