@@ -62,7 +62,7 @@
               <li class="nav-header">w2a Root</li>
               <a href="{{=URL('plugin_web2admin','permissions')}}">Manage permissions</a>
               {{pass}}
-              {{if plugins.web2admin.custom_sidebar_title:}}
+              {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}
               <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
               {{for link in plugins.web2admin.custom_sidebar_links:}}
               <li>{{=link}}<li>
