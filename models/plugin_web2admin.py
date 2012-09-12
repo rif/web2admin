@@ -12,7 +12,8 @@ perms = ('w2a_read',
                'w2a_create',
                'w2a_select',
                'w2a_edit',
-               'w2a_delete')
+               'w2a_delete',
+               'w2a_export')
 
 def check_access(table, perm):
     return auth.is_logged_in() and \
@@ -23,4 +24,3 @@ def check_access(table, perm):
 
 from gluon.tools import PluginManager
 plugins = PluginManager('web2admin', items_per_page = 20)
-
