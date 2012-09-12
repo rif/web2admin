@@ -49,6 +49,6 @@ Add extra links in sidebar:
 
     plugins.web2admin.custom_sidebar_title = "My Links"
     plugins.web2admin.custom_sidebar_links = [
-        A('External link', _href='http://www.youhe.ro'),
+        A('External link', _href='http://www.youhe.ro', _target='_blank'),
         A('Back to homepage', _href=URL('default', 'index', args=0)),
     ]
