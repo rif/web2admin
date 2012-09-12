@@ -21,4 +21,6 @@ def check_access(table, perm):
              table not in auth_tables) or \
         auth.has_permission(perm, table, 0))
 
-plugins.web2admin.items_per_page = 20
+from gluon.tools import PluginManager
+plugins = PluginManager('web2admin', items_per_page = 20)
+
