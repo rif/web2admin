@@ -2,7 +2,7 @@
 
 {{=form.custom.begin}}
 {{=form.custom.widget.action}}
-<div>{{=form.custom.widget.users}} {{=form.custom.widget.tables}}</div>
+<div>{{=form.custom.widget.users}} and/or {{=form.custom.widget.groups}} on {{=form.custom.widget.tables}}</div>
 <div>Permissions: {{=form.custom.widget.permissions}}</div>
 {{=form.custom.submit}}
 {{=form.custom.end}}
@@ -11,6 +11,10 @@
    $(function() {
    $("#no_table_users").select2({
    placeholder: "Select one or more Users",
+   width: "300px",
+   });
+   $("#no_table_groups").select2({
+   placeholder: "Select one or more Groups",
    width: "300px",
    });
    $("#no_table_tables").select2({

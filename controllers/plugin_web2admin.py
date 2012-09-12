@@ -33,7 +33,9 @@ def permissions():
               default=True,
               widget=SQLFORM.widgets.options.widget),
         Field('users', 'list:int',
-              requires = IS_IN_DB(db, 'auth_user.id', '%(first_name)s %(last_name)s', multiple=True)),
+              requires = IS_IN_DB(db, db.auth_user.id, '%(first_name)s %(last_name)s', multiple=True)),
+        Field('groups', 'list:int',
+              requires = IS_IN_DB(db, db.auth_group.id, '%(role)s %(description)s', multiple=True)),
         Field('tables', 'list:string',
               requires=IS_IN_SET(db.tables, multiple=True)),
         Field('permissions', 'list:string',
@@ -47,6 +49,10 @@ def permissions():
             for table in form.vars.tables:
                 for perm in form.vars.permissions:
                     action(auth.user_group(user_id), perm, table, 0)
+        for group_id in form.vars.groups:
+            for table in form.vars.tables:
+                for perm in form.vars.permissions:
+                    action(group_id, perm, table, 0)
     elif form.errors:
         response.flash = T('form has errors')
     return dict(form=form)
