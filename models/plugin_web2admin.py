@@ -22,5 +22,3 @@ def check_access(table, perm):
         auth.has_permission(perm, table, 0))
 
 plugins.web2admin.items_per_page = 20
-plugins.web2admin.custom_sidebar_title = ""
-plugins.web2admin.custom_sidebar_links = []

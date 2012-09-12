@@ -48,7 +48,7 @@ Configure the number of items per page:
 Add extra links in sidebar:
 
     plugins.web2admin.custom_sidebar_title = "My Links"
-    plugins.web2admin.extra_sidebar_links = [
+    plugins.web2admin.custom_sidebar_links = [
         A('External link', _href='http://www.youhe.ro'),
         A('Back to homepage', _href=URL('default', 'index', args=0)),
     ]
