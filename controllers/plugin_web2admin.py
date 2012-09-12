@@ -55,4 +55,5 @@ def permissions():
                     action(group_id, perm, table, 0)
     elif form.errors:
         response.flash = T('form has errors')
-    return dict(form=form)
+    grid = SQLFORM.smartgrid(db.auth_permission)
+    return locals()
