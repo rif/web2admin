@@ -33,7 +33,7 @@ def clone_action(table, ids):
     for row in db(t.id.belongs(ids)).select():
         to_clone = {}
         for field in fields:
-            if field != 'id':
+            if field != t._id.name:
                 to_clone[field] = row[field]
         to_insert.append(to_clone)
     t.bulk_insert(to_insert)
@@ -41,6 +41,7 @@ def clone_action(table, ids):
 from gluon.tools import PluginManager
 plugins = PluginManager('web2admin',
     items_per_page = 20,
+    default_actions = {'delete':delete_action, 'clone': clone_action},
     actions = {}
 )
-plugins.web2admin.actions.update({'delete':delete_action, 'clone': clone_action})
+plugins.web2admin.actions.update(plugins.web2admin.default_actions)

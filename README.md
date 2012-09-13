@@ -56,3 +56,24 @@ Add extra links in sidebar:
         A('External link', _href='http://www.youhe.ro', _target='_blank'),
         A('Back to homepage', _href=URL('default', 'index', args=0)),
     ]
+
+Actions
+-------
+
+Actions can be executed on multiple items by checking them and selecting an action from the header.
+
+By default there are two actions defined: delete and clone.
+
+To define a new action you must create a function that take as arguments a table name and a list of ids, and set the plugins.web2admin.actions plugin parameter to a dictionary having as keys the action names and as values the action functions: 
+
+	def hello_action(table, ids):
+		if table != 'student':
+		    session.flash = 'Not available'
+		else:
+		    session.flash = '%s, %s' %(table, ids)
+
+	plugins.web2admin.actions = {'hello': hello_action}
+
+If you want to disable the default actions or you want no actions at all (if you did not create any), you can set the plugins.web2admin.default_actions parameter to an empty dictionary.
+ 
+	plugins.web2admin.default_actions={} 
