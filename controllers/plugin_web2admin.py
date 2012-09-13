@@ -10,7 +10,6 @@ def  view_table():
     form = SQLFORM.factory(
         Field('action', requires=IS_IN_SET(plugins.web2admin.actions.keys()))
     )
-    print request.vars.action
     grid = SQLFORM.smartgrid(db[table],args=request.args[:1],
                              create = check_access(table, 'w2a_create'),
                              searchable = check_access(table, 'w2a_select'),

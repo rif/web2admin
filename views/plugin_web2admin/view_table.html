@@ -1,14 +1,14 @@
 {{extend 'plugin_web2admin/layout.html'}}
 
 {{=form.custom.begin}}
-Action: {{=form.custom.widget.action}}
+{{=form.custom.widget.action}}
 {{=form.custom.end}}
 {{=grid}}
 
-{{=response.toolbar()}}
-
 <script type="text/javascript">
 $(function(){
+	$('th:first').html($('#no_table_action'));
+	$('#no_table_action').select2({width:'100px',  placeholder:"{{=T('Action')}}"});
 	$('form').submit(function(){
 		var action = $('#no_table_action').val();
 		if(action != ''){
