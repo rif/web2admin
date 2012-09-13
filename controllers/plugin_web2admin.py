@@ -7,8 +7,9 @@ def index():
 def  view_table():
     table = a0 or 'auth_user'
     if not table in db.tables(): redirect(URL('error'))
+    actions = plugins.web2admin.actions or {}
     form = SQLFORM.factory(
-        Field('action', requires=IS_IN_SET(plugins.web2admin.actions.keys()))
+        Field('action', requires=IS_IN_SET(actions.keys()))
     )
     grid = SQLFORM.smartgrid(db[table],args=request.args[:1],
                              create = check_access(table, 'w2a_create'),

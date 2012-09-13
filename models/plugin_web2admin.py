@@ -41,5 +41,6 @@ def clone_action(table, ids):
 from gluon.tools import PluginManager
 plugins = PluginManager('web2admin',
     items_per_page = 20,
-    actions = {'delete':delete_action, 'clone': clone_action}
+    actions = {}
 )
+plugins.web2admin.actions.update({'delete':delete_action, 'clone': clone_action})
