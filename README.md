@@ -7,6 +7,8 @@ It is minimal yet functional using the features provided by web2py SQLFORM.smart
 
 It takes security very seriously and uses both groups and permissions for fine-grained access control.
 
+![Screenshot](http://cloud.github.com/downloads/rif/web2admin/home.jpg)
+
 Installation
 ------------
  - Download the [plugin installer](https://github.com/downloads/rif/web2admin/web2py.plugin.web2admin.w2p) and install it via the web2py interface.
@@ -59,6 +61,8 @@ Add extra links in sidebar:
 
 Actions
 -------
+
+![Actions](http://cloud.github.com/downloads/rif/web2admin/actions.jpg)
 
 Actions can be executed on multiple items by checking them and selecting an action from the header.
 
