@@ -64,10 +64,10 @@ Fields
 
 You can restrict the fields to be displayed for specific tables by setting the plugins.web2admin.fields to a dictionary of table names and list of fields from those tables:
 
-plugins.web2admin.fields={
-    'test': [db.test.id, db.test.name],
-    'student':[db.student.id, db.student.first_name]
-}
+	plugins.web2admin.fields={
+		'test': [db.test.id, db.test.name],
+		'student':[db.student.id, db.student.first_name]
+	}
 
 Actions
 -------
