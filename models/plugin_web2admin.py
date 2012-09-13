@@ -42,6 +42,7 @@ from gluon.tools import PluginManager
 plugins = PluginManager('web2admin',
     items_per_page = 20,
     default_actions = {'delete':delete_action, 'clone': clone_action},
-    actions = {}
+    actions = {},
+    fields = {},
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
