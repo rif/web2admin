@@ -41,6 +41,10 @@ Configuration
 Paste the following configuration lines in your model file
 (e.g. db.py) to change web2admin behavior:
 
+Change the logo (brand) of the admin app	
+   plugins.web2admin.logo = 'SuperApp'  
+   plugins.web2admin.logo = IMG(_src=URL('static', 'images/google-buzz.png')) + ' SupperApp'
+
 Configure the number of items per page:
 
     plugins.web2admin.items_per_page = 5 (default 20)

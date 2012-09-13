@@ -7,23 +7,30 @@ def index():
 def  view_table():
     table = a0 or 'auth_user'
     if not table in db.tables(): redirect(URL('error'))
+    form = SQLFORM.factory(
+        Field('action', requires=IS_IN_SET(plugins.web2admin.actions.keys()))
+    )
+    print request.vars.action
     grid = SQLFORM.smartgrid(db[table],args=request.args[:1],
                              create = check_access(table, 'w2a_create'),
                              searchable = check_access(table, 'w2a_select'),
                              editable = check_access(table, 'w2a_edit'),
                              deletable = check_access(table, 'w2a_delete'),
                              csv = check_access(table, 'w2a_export'),
-                             paginate = plugins.web2admin.items_per_page
-                             #selectable = lambda ids: del_action(table, ids)
+                             #left = db.student.on(db.test.id),
+                             paginate = plugins.web2admin.items_per_page,
+                             selectable = lambda ids: del_action(table, ids, request.vars.action)
     )
     return locals()
 
-def del_action(table, ids):
+def del_action(table, ids, action):
     if not ids:
-        response.flash=T('Please select some rows to delete')
+        session.flash=T('Please select some rows to delete')
     else:
-        to_delete = db(db[table].id.belongs(ids))
-        to_delete.delete()
+        if action:
+            plugins.web2admin.actions[action](table,ids)
+        else:
+            session.flash=T('Please select an action')
 
 
 @auth.requires_membership('w2a_root')

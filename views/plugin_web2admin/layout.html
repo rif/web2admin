@@ -34,7 +34,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">web2admin</a>
+          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
           <div class="navbar">
               <span class="auth-navbar pull-right" id="navbar">
                 {{='auth' in globals() and auth.navbar() or ''}}

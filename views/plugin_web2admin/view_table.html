@@ -1,3 +1,20 @@
 {{extend 'plugin_web2admin/layout.html'}}
 
+{{=form.custom.begin}}
+Action: {{=form.custom.widget.action}}
+{{=form.custom.end}}
 {{=grid}}
+
+{{=response.toolbar()}}
+
+<script type="text/javascript">
+$(function(){
+	$('form').submit(function(){
+		var action = $('#no_table_action').val();
+		if(action != ''){
+			$.post('{{=request.url}}', $(this).serialize() + '&action=' + action);
+			window.location.reload();
+		}
+	});
+});
+</script>
