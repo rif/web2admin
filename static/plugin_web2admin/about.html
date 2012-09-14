@@ -1,1 +1,99 @@
-README.md
+<h1>web2admin</h1>
+
+<p>This is a simple <a href="http://www.web2py.com">web2py</a> administration plugin.</p>
+
+<p>It is heavily using the features provided by web2py SQLFORM.smartgrid featuring extensive search, actions, history, custom navigation links, pagination and various customizations. </p>
+
+<p>It takes security very seriously and uses both groups and permissions for fine-grained access control.</p>
+
+<p><img src="http://cloud.github.com/downloads/rif/web2admin/home.jpg" alt="Screenshot" title="" /></p>
+
+<h2>Installation</h2>
+
+<ul>
+<li>Download the <a href="https://github.com/downloads/rif/web2admin/web2py.plugin.web2admin.w2p">plugin installer</a> and install it via the web2py interface.</li>
+</ul>
+
+<p>or</p>
+
+<ul>
+<li><p>Clone the web2admin repo and copy content in your app excluding the .git and .gitignore. </p>
+
+<p>The master branch will always contain to the latest stable version
+(the development will be done on another branch).</p></li>
+</ul>
+
+<h2>Update</h2>
+
+<p>Just use any of the installation procedures and overwrite the plugin content in your web2py app. </p>
+
+<h2>Usage</h2>
+
+<p>Install the plugin ;)</p>
+
+<ul>
+<li><p>If a user is in the w2a_root group then it has full rights including adding permissions or changing the groups of other users.</p></li>
+<li><p>If a user is in the w2a_manager group then it has all permissions for all tables except auth tables (no changing permissions for other users).</p></li>
+</ul>
+
+<p>Give fine-grained permissions to particular users for specific tables:
+ - Create the following permissions (w2a<em>read, w2a</em>create, w2a<em>select, w2a</em>edit, w2a<em>delete, w2a</em>export) for the desired tables and authorized users. If a user is in w2a_root group it has a special controller (permissions) for adding/removing permissions to the users (you can still perform this through regular appadmin).</p>
+
+<p>Access http://localhost:8000/yourapp/web2admin</p>
+
+<h2>Configuration</h2>
+
+<p>Paste the following configuration lines in your model file
+(e.g. db.py) to change web2admin behavior:</p>
+
+<p>Change the logo (brand) of the admin app <br />
+   plugins.web2admin.logo = 'SuperApp' <br />
+   plugins.web2admin.logo = IMG(_src=URL('static', 'images/google-buzz.png')) + ' SupperApp'</p>
+
+<p>Configure the number of items per page:</p>
+
+<pre><code>plugins.web2admin.items_per_page = 5 (default 20)
+</code></pre>
+
+<p>Add extra links in sidebar:</p>
+
+<pre><code>plugins.web2admin.custom_sidebar_title = "My Links"
+plugins.web2admin.custom_sidebar_links = [
+    A('External link', _href='http://www.youhe.ro', _target='_blank'),
+    A('Back to homepage', _href=URL('default', 'index', args=0)),
+]
+</code></pre>
+
+<h2>Fields</h2>
+
+<p>You can restrict the fields to be displayed for specific tables by setting the plugins.web2admin.fields to a dictionary of table names and list of fields from those tables:</p>
+
+<pre><code>plugins.web2admin.fields={
+    'test': [db.test.id, db.test.name],
+    'student':[db.student.id, db.student.first_name]
+}
+</code></pre>
+
+<h2>Actions</h2>
+
+<p><img src="http://cloud.github.com/downloads/rif/web2admin/actions.jpg" alt="Actions" title="" /></p>
+
+<p>Actions can be executed on multiple items by checking them and selecting an action from the header.</p>
+
+<p>By default there are two actions defined: delete and clone.</p>
+
+<p>To define a new action you must create a function that take as arguments a table name and a list of ids, and set the plugins.web2admin.actions plugin parameter to a dictionary having as keys the action names and as values the action functions: </p>
+
+<pre><code>def hello_action(table, ids):
+    if table != 'student':
+        session.flash = 'Not available'
+    else:
+        session.flash = '%s, %s' %(table, ids)
+
+plugins.web2admin.actions = {'hello': hello_action}
+</code></pre>
+
+<p>If you want to disable the default actions or you want no actions at all (if you did not create any), you can set the plugins.web2admin.default_actions parameter to an empty dictionary.</p>
+
+<pre><code>plugins.web2admin.default_actions={}
+</code></pre>
