@@ -3,7 +3,7 @@ web2admin
 
 This is a simple [web2py](http://www.web2py.com) administration plugin.
 
-It is minimal yet functional using the features provided by web2py SQLFORM.smartgrid.
+It is heavily using the features provided by web2py SQLFORM.smartgrid featuring extensive search, actions, history, custom navigation links, pagination and various customizations. 
 
 It takes security very seriously and uses both groups and permissions for fine-grained access control.
 
