@@ -28,7 +28,7 @@ def  view_table():
 
 @auth.requires_login()
 def history():
-    logs = db(w2a_history).select()[:10]
+    logs = db(w2a_history).select()[:5]
     return locals()
 
 @auth.requires_membership('w2a_root')
