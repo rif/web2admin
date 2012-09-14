@@ -2,6 +2,11 @@ if request.controller == 'web2admin':
     request.controller = 'plugin_web2admin'
     response.view = response.view.replace('web2admin', 'plugin_web2admin')
 
+w2a_history = db.define_table('plugin_web2admin_history',
+    Field('action'),
+    auth.signature
+)
+
 a0, a1 = request.args(0), request.args(1)
 
 auth_tables = ('auth_user',
@@ -26,10 +31,39 @@ def check_access(table, perm):
              table not in auth_tables) or \
         auth.has_permission(perm, table, 0))
 
+
+def action_dispatch(table, ids, action):
+    """ This is called on selectable submit and dispatches
+    the action to the right function"""
+    if not ids:
+        session.flash=T('Please select some rows to delete')
+    else:
+        if action:
+            plugins.web2admin.actions[action](table,ids)
+            w2a_history.insert(action=T('executed action %s on %s id(s): %s') % (action, table, ids))
+        else:
+            session.flash=T('Please select an action')
+
+def create_update_callback(form, table, action):
+    """Called on creation and updating events"""
+    format = db[table]._format
+    name = '(%s)' % form.vars.id
+    if format:
+        if callable(format): name = format(form.vars)
+        else: name = format % form.vars
+    w2a_history.insert(action=T('%s a %s: %s') % (action, table, name))
+
+def delete_callback(table, record_id):
+    print 'here: ', table, record_id
+    w2a_history.insert(action=T('deleted a %s (%s)') % (table, record_id))
+
+
+@auth.requires(check_access(a0, 'w2a_delete'))
 def delete_action(table, ids):
     to_delete = db(db[table].id.belongs(ids))
     to_delete.delete()
 
+@auth.requires(check_access(a0, 'w2a_create'))
 def clone_action(table, ids):
     t = db[table]
     fields = t.fields

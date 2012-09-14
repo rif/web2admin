@@ -5,6 +5,7 @@ def index():
 
 @auth.requires(check_access(a0, 'w2a_read'))
 def  view_table():
+    """The main function for table grid display"""
     table = a0 or 'auth_user'
     if not table in db.tables(): redirect(URL('error'))
     actions = plugins.web2admin.actions
@@ -18,22 +19,21 @@ def  view_table():
                              csv = check_access(table, 'w2a_export'),
                              #left = db.student.on(db.test.id),
                              paginate = plugins.web2admin.items_per_page,
-                             selectable = None if not actions else lambda ids: action_dispach(table, ids, request.vars.action)
+                             selectable = None if not actions else lambda ids: action_dispatch(table, ids, request.vars.action),
+                             oncreate = lambda form: create_update_callback(form, table, T('created')),
+                             onupdate = lambda form: create_update_callback(form, table, T('updated')),
+                             ondelete = lambda table, record_id: delete_callback(table, record_id),
     )
     return locals()
 
-def action_dispach(table, ids, action):
-    if not ids:
-        session.flash=T('Please select some rows to delete')
-    else:
-        if action:
-            plugins.web2admin.actions[action](table,ids)
-        else:
-            session.flash=T('Please select an action')
-
+@auth.requires_login()
+def history():
+    logs = db(w2a_history).select()[:10]
+    return locals()
 
 @auth.requires_membership('w2a_root')
 def permissions():
+    """Easy adding/removing permissions for users/groups on spcific tables"""
     form = SQLFORM.factory(
         Field('action',
               requires=IS_IN_SET((('add',T('Add permissions')), ('remove', T('Remove permissions'))), zero=None),

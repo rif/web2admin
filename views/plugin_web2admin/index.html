@@ -1,4 +1,4 @@
-{{extend 'plugin_web2admin/layout.html'}}
+{{extend 'plugin_web2admin/w2a_layout.html'}}
 
 {{if tables:}}
 <table class="table table-hover table-condensed table-bordered">
@@ -29,7 +29,6 @@
            href="{{=URL('plugin_web2admin','view_table', args=table)}}">
           <span class="icon magnifier icon-zoom-in"></span>
           <span class="buttontext button" title="View">{{=T('View')}}</span></a>
-</a>
       </td>
     </tr>
     {{pass}}

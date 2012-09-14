@@ -1,0 +1,8 @@
+{{from gluon.tools import prettydate}}
+
+<li class="nav-header">{{=T('History')}}</li> 
+{{for log in logs:}}
+{{u = db.auth_user(log.created_by)}}
+<li>{{=db.auth_user._format % u}} {{=log.action}}, {{=prettydate(log.created_on,T)}}</li>
+{{pass}}
+        

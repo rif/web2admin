@@ -55,7 +55,7 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Navigation</li>
+              <li class="nav-header">{{=T('Tables')}}</li>
               <li><a href="{{=URL('plugin_web2admin', 'index')}}">{{=T('home')}}</a></li>
               {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
               {{if auth.has_membership('w2a_root'):}}
@@ -68,6 +68,7 @@
               <li>{{=link}}<li>
               {{pass}}
               {{pass}}
+              {{=LOAD('plugin_web2admin', 'history.load', ajax=True)}}
             </ul>
           </div><!--/.well -->
         </div--><!--/span-->
