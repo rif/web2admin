@@ -7,10 +7,8 @@ def index():
 def  view_table():
     table = a0 or 'auth_user'
     if not table in db.tables(): redirect(URL('error'))
-    actions = plugins.web2admin.actions or {}
-    form = SQLFORM.factory(
-        Field('action', requires=IS_IN_SET(actions.keys()))
-    )
+    actions = plugins.web2admin.actions
+    form = SQLFORM.factory(Field('action', requires=IS_IN_SET(actions.keys()))) if actions else None
     grid = SQLFORM.smartgrid(db[table],args=request.args[:1],
                              fields = plugins.web2admin.fields[table] if table in plugins.web2admin.fields else None,
                              create = check_access(table, 'w2a_create'),
@@ -20,11 +18,11 @@ def  view_table():
                              csv = check_access(table, 'w2a_export'),
                              #left = db.student.on(db.test.id),
                              paginate = plugins.web2admin.items_per_page,
-                             selectable = lambda ids: del_action(table, ids, request.vars.action)
+                             selectable = None if not actions else lambda ids: action_dispach(table, ids, request.vars.action)
     )
     return locals()
 
-def del_action(table, ids, action):
+def action_dispach(table, ids, action):
     if not ids:
         session.flash=T('Please select some rows to delete')
     else:

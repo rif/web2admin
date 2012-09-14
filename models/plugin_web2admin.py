@@ -1,3 +1,7 @@
+if request.controller == 'web2admin':
+    request.controller = 'plugin_web2admin'
+    response.view = response.view.replace('web2admin', 'plugin_web2admin')
+
 a0, a1 = request.args(0), request.args(1)
 
 auth_tables = ('auth_user',
