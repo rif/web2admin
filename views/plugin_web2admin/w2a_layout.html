@@ -14,14 +14,20 @@
     <title>web2admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="web2py administration">
+
     {{
     response.files.append(URL('static','plugin_web2admin/css/bootstrap.min.css'))
     response.files.append(URL('static','plugin_web2admin/css/bootstrap-responsive.min.css'))
     response.files.append(URL('static','plugin_web2admin/css/web2py.css'))
     response.files.append(URL('static','plugin_web2admin/css/web2py_bootstrap.css'))
     response.files.append(URL('static','plugin_web2admin/css/select2.css'))
+    response.files.insert(0,URL('static','plugin_web2admin/js/jquery.js'))
+    response.files.insert(1,URL('static','plugin_web2admin/css/calendar.css'))
+    response.files.insert(2,URL('static','plugin_web2admin/js/calendar.js'))
+    response.files.insert(3,URL('static','plugin_web2admin/js/web2py.js'))
+    response.include_files()
     }}
-    {{include 'plugin_web2admin/web2py_ajax.html'}}
+ 
     <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,19 +40,18 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="{{=URL('plugin_web2admin',
-          'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
+
+          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
+          
           {{if len(plugins.web2admin.dbs)>1:}}
           <ul class="nav">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 {{=T('Databases')}}
-                <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 {{for i, b in enumerate(plugins.web2admin.dbs):}}
-                <li><a tabindex="-1" href="{{=URL('plugin_web2admin',
-                'change_db', args=i)}}">
+                <li><a tabindex="-1" href="{{=URL('plugin_web2admin', 'change_db', args=i)}}">
                     {{if i== session.dbindex:}}<i class="icon-ok"></i>{{pass}}
                     {{=b._uri}}
                 </a></li>
@@ -55,9 +60,8 @@
             </li>
           </ul>
           {{pass}}
-          <span class="auth-navbar pull-right" id="navbar">
-            {{='auth' in globals() and auth.navbar() or ''}}
-          </span>
+          
+          <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
         </div>
       </div>
     </div>
@@ -102,9 +106,37 @@
       </footer>
 
     </div><!--/.fluid-container-->
+      <script type="text/javascript"><!--
+    // These variables are used by the web2py_ajax_init function in web2py_ajax.js (which is loaded below).
+    var w2p_ajax_confirm_message = "{{=T('Are you sure you want to delete this object?')}}";
+    var w2p_ajax_date_format = "{{=T('%Y-%m-%d')}}";
+    var w2p_ajax_datetime_format = "{{=T('%Y-%m-%d %H:%M:%S')}}";
+    //--></script>
+        <script>
+    // this code improves bootstrap menus and adds dropdown support
+    jQuery(function(){
+      jQuery('.nav>li>a').each(function(){
+        if(jQuery(this).parent().find('ul').length)
+          jQuery(this).attr({'class':'dropdown-toggle','data-toggle':'dropdown'}).append('<b class="caret"></b>');
+      });
+      jQuery('.nav li li').each(function(){
+        if(jQuery(this).find('ul').length)
+          jQuery(this).children('a').contents().before('<i class="chevron-right"></i>');
+      });
+      if(jQuery(document).width()>=980) {
+        jQuery('ul.nav li.dropdown').hover(function() {
+          jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
+        }, function() {
+          jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut();
+        });
+      }
+      jQuery('ul.nav li.dropdown a').click(function(){window.location=jQuery(this).attr('href');});
+      // make all buttons bootstrap buttons
+      jQuery('button, form input[type="submit"], form input[type="button"]').addClass('btn').css({'margin-right':'2px','margin-bottom':'2px'});
+    });
+  </script>
 
-<script src="{{=URL('static','plugin_web2admin/js/jquery.js')}}"></script>
-<script src="{{=URL('static','plugin_web2admin/js/bootstrap.min.js')}}"></script>
-<script src="{{=URL('static','plugin_web2admin/js/select2.min.js')}}"></script>
+      <script src="{{=URL('static','plugin_web2admin/js/bootstrap.min.js')}}"></script>
+      <script src="{{=URL('static','plugin_web2admin/js/select2.min.js')}}"></script>
   </body>
 </html>

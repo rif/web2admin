@@ -1,8 +1,29 @@
-body {
-  padding-top: 60px;
+#navbar .auth_navbar, #navbar .auth_navbar a {color:inherit;}
+
+div.flash.flash-center {
+   left: 25%;
+   right: 25%;
 }
 
-#navbar .auth_navbar, #navbar .auth_navbar a {color:inherit;}
+div.flash.flash-top, div.flash.flash-top:hover {
+  position: relative;
+  display: block;
+  margin:0;
+  padding:1em;
+  top:0;
+  left:0;
+  width:100%;
+  text-align:center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  color:#865100;
+  background:#feea9a;
+  border:1px solid;
+  border-top:0px;
+  border-left:0px;
+  border-right:0px;
+  border-radius:0;
+  opacity:1;
+}
 
 /* bootstrap dropdown */
 
@@ -16,6 +37,10 @@ body {
 
 .dropdown-menu li:hover ul {
     visibility: visible;
+}
+
+#header {
+  margin-top: 60px;
 }
 
 .mastheader h1 {
@@ -81,6 +106,8 @@ body {
 .ie-lte7 #navbar .auth_navbar, #navbar .auth_navbar a {color:expression(this.parentNode.currentStyle['color']); /* ie7 doesn't support inherit */}
 
 #navbar .auth_navbar a:hover {color:white;text-decoration:none;} /* this overwrite bootswatch */
+ul#navbar{padding:0;} /*reset ul padding */
+ul#navbar>.auth_navbar{display:inline-block;padding:5px;} /* set padding of span.auth_navbar inside ul*/
 
 body {
   height:auto; /*to avoid vertical scroll bar*/
@@ -92,15 +119,21 @@ li {margin-bottom: 0;} /*bootswatch*/
 
 .auth_navbar, .navbar .btn-group { padding:0; }
 
-[class^="icon-"],[class*=" icon-"]{background-image:url("../img/glyphicons-halflings.png")} /* right folder for bootstrap black images/icons */
-.icon-white{background-image:url("../img/glyphicons-halflings-white.png");} /* right folder for bootstrap white images/icons */
+[class^="icon-"],[class*=" icon-"]{background-image:url("../img/glyphicons-halflings.png")} /* right folder for bootstrap black img/icons */
+.icon-white{background-image:url("../img/glyphicons-halflings-white.png");} /* right folder for bootstrap white img/icons */
+
+.navbar-inner{
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  position:relative;
+}
 
 @media only screen and (max-width: 979px) {
   body {
   padding-top: 0px;
   }
   
-  .navbar-inner{position:relative;}
   #navbar{bottom:-10px;left:4px;}
   
   div.flash {
@@ -111,6 +144,20 @@ li {margin-bottom: 0;} /*bootswatch*/
     visibility: visible;
   }
  
+}
+
+div.error_wrapper {
+  margin-bottom: 9px;
+}
+div.error {
+  border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;  
+}
+
+input[type="button"], input[type="submit"] {
+   // to be fixed
 }
 
 @media only screen and (max-width: 479px) {
