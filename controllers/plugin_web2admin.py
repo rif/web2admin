@@ -1,12 +1,7 @@
 @auth.requires_login()
 def index():
     tables = [table for table in cdb().tables if check_access(table, 'w2a_read')]
-    # Building details popup for every field on tables
-    if auth.has_membership("w2a_root", auth.user_id):
-        from plugin_web2admin.html import build_field_details
-        field_details = build_field_details(cdb(), tables)
     return locals()
-
 
 @auth.requires(check_access(a0, 'w2a_read'))
 def  view_table():
@@ -41,6 +36,14 @@ def change_db():
     session.dbindex = request.args(0, default=0, cast=int, otherwise=URL('plugin_web2admin', 'index'))
     redirect(URL('plugin_web2admin', 'index'))
 
+
+@auth.requires(auth.has_membership('w2a_root') or auth.has_membership('w2a_manager'))
+def fields():
+    table = a0
+    if not table in cdb().tables(): redirect(URL('error'))
+    table = cdb()[table]
+    return locals()
+
 @auth.requires_membership('w2a_root')
 def permissions():
     """Easy adding/removing permissions for users/groups on spcific tables"""
@@ -74,3 +77,7 @@ def permissions():
         response.flash = T('form has errors')
     grid = SQLFORM.smartgrid(cdb(0).auth_permission)
     return locals()
+
+def error():
+    # TODO: change this with a nice page
+    raise HTTP(404)

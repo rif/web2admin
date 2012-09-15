@@ -1,0 +1,31 @@
+<div class="accordion" id="accordion2">
+   {{for i, field in enumerate(table.fields):}}
+   {{field=table[field]}}
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{=i}}">
+        {{=field.name}}
+      </a>
+    </div>
+    <div id="collapse{{=i}}" class="accordion-body {{if i == 0:}}collapse in{{else:}}collapse{{pass}}">
+      <div class="accordion-inner">
+        <table class="table table-bordered table-hover table-condensed">
+          <tbody>
+            <tr><td>{{=T('Type')}}</td><td>{{=field.type}}</td></tr>
+            <tr><td>{{=T('Length')}}</td><td>{{=field.length}}</td></tr>
+            <tr><td>{{=T('Comment')}}</td><td>{{=field.comment}}</td></tr>
+            <tr><td>{{=T('Label')}}</td><td>{{=field.label}}</td></tr>
+            <tr><td>{{=T('Compute')}}</td><td>{{=field.compute}}</td></tr>
+            <tr><td>{{=T('Represent')}}</td><td>{{=field.represent}}</td></tr>
+            <tr><td>{{=T('Requires')}}</td><td>{{=field.requires}}</td></tr>
+            <tr><td>{{=T('Required')}}</td><td>{{=field.required}}</td></tr>
+            <tr><td>{{=T('Unique')}}</td><td>{{=field.unique}}</td></tr>
+            <tr><td>{{=T('Readable')}}</td><td>{{=field.readable}}</td></tr>
+            <tr><td>{{=T('Writable')}}</td><td>{{=field.writable}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {{pass}}
+</div>
