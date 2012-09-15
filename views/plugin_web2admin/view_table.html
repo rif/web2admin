@@ -7,8 +7,13 @@
 
 <script type="text/javascript">
 $(function(){
+/* Remove the select if there is no table */
+if ($('.web2py_grid .web2py_table').length == 0) {
+$('#no_table_action').remove();
+}
+/* Add the action select to the table header */
 	if ($('#no_table_action').length > 0) {
-		$('th:first').html($('#no_table_action'));
+		$('.web2py_grid .web2py_table th:first').html($('#no_table_action'));
 		$('#no_table_action').select2({width:'100px',  placeholder:"{{=T('Action')}}"});
 		$('form').submit(function(){
 			var action = $('#no_table_action').val();

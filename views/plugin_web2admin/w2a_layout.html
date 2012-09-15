@@ -34,12 +34,30 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
-          <div class="navbar">
-              <span class="auth-navbar pull-right" id="navbar">
-                {{='auth' in globals() and auth.navbar() or ''}}
-              </span>
-          </div><!--/.nav-collapse -->
+          <a class="brand" href="{{=URL('plugin_web2admin',
+          'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
+          {{if len(plugins.web2admin.dbs)>1:}}
+          <ul class="nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                {{=T('Databases')}}
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                {{for i, b in enumerate(plugins.web2admin.dbs):}}
+                <li><a tabindex="-1" href="{{=URL('plugin_web2admin',
+                'change_db', args=i)}}">
+                    {{if i== session.dbindex:}}<i class="icon-ok"></i>{{pass}}
+                    {{=b._uri}}
+                </a></li>
+                {{pass}}
+              </ul>
+            </li>
+          </ul>
+          {{pass}}
+          <span class="auth-navbar pull-right" id="navbar">
+            {{='auth' in globals() and auth.navbar() or ''}}
+          </span>
         </div>
       </div>
     </div>
