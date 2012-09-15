@@ -1,7 +1,14 @@
 @auth.requires_login()
 def index():
     tables = [table for table in db.tables if check_access(table, 'w2a_read')]
+    
+    # Building details popup for every field on tables
+    if auth.has_membership("w2a_root", auth.user_id):
+        from plugin_web2admin.html import build_field_details
+        field_details = build_field_details(db, tables)
+        
     return locals()
+
 
 @auth.requires(check_access(a0, 'w2a_read'))
 def  view_table():
