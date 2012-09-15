@@ -69,6 +69,11 @@
             </li>
           </ul>
           {{pass}}
+          <form class="navbar-form pull-left">
+       <select></select>
+  <input type="text" class="span2">
+  <button type="submit" class="btn">Submit</button>
+</form>
           
           <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
         </div>

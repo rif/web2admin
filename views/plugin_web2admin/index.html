@@ -34,7 +34,8 @@
         </a>
         {{if  check_access(table, 'w2a_create'):}}
         <a class="btn btn-mini btn-success"
-           href="{{=URL('plugin_web2admin', 'view_table', args=table)}}/{{=table}}/new/{{=table}}">
+           href="{{=URL('plugin_web2admin', 'view_table',
+           args=(table,table,'new', table), user_signature=True)}}">
           <i class="icon-plus"></i> {{=T('New')}}
         </a>
         {{pass}}
