@@ -25,12 +25,20 @@
         {{=w2p_db(w2p_db[table]).count()}}
       </td>
       <td>
-        <a class="btn btn-mini" href="{{=URL('plugin_web2admin','view_table', args=table)}}">
+         <div class="btn-group">
+        <a class="btn btn-mini btn-success" href="{{=URL('plugin_web2admin','view_table', args=table)}}">
           <i class="icon-zoom-in"></i> {{=T('View')}}
         </a>
-        <a class="btn btn-mini btn-info" href="{{=URL('plugin_web2admin', 'fields', args=table)}}" data-toggle="modal" data-target="#fieldsModal">
+        <a class="btn btn-mini btn-success" href="{{=URL('plugin_web2admin', 'fields', args=table)}}" data-toggle="modal" data-target="#fieldsModal">
           <i class="icon-th-list"></i> {{=T('Fields')}}
         </a>
+        {{if  check_access(table, 'w2a_create'):}}
+        <a class="btn btn-mini btn-success"
+           href="{{=URL('plugin_web2admin', 'view_table', args=table)}}/{{=table}}/new/{{=table}}">
+          <i class="icon-plus"></i> {{=T('New')}}
+        </a>
+        {{pass}}
+        </div>
       </td>
     </tr>
     {{pass}}
