@@ -1,5 +1,4 @@
 {{extend 'plugin_web2admin/w2a_layout.html'}}
-
 {{if tables:}}
 <table class="table table-hover table-condensed table-bordered">
   <thead>
@@ -25,15 +24,22 @@
         {{=cdb()(cdb()[table]).count()}}
       </td>
       <td>
-        <a class="w2p_trap button btn"
+        <a class="w2p_trap button btn btn-mini"
            href="{{=URL('plugin_web2admin','view_table', args=table)}}">
           <span class="icon magnifier icon-zoom-in"></span>
           <span class="buttontext button" title="View">{{=T('View')}}</span></a>
+        {{if 'field_details' in globals():}}
+        <a role="button" data-toggle="modal" class="details-modal w2p_trap button btn btn-primary btn-mini" href="#details_{{=table}}">
+          <span class="icon magnifier icon-wrench"></span>
+          <span class="buttontext button" title="View">{{=T('Details')}}</span></a>
+        {{pass}}
+      
       </td>
     </tr>
     {{pass}}
   </tbody>
 </table>
+{{response.write(field_details) if "field_details" in globals() else None}}
 {{else:}}
 <p>{{=T('Sorry, you do not have permission to access any tables.')}}</p>
 {{pass}}
