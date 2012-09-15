@@ -37,8 +37,7 @@ Give fine-grained permissions to particular users for specific tables:
  
 Access http://localhost:8000/yourapp/web2admin
 
-Configuration
--------------
+## Configuration
 
 Paste the following configuration lines in your model file
 (e.g. db.py) to change web2admin behavior:
@@ -59,8 +58,15 @@ Add extra links in sidebar:
         A('Back to homepage', _href=URL('default', 'index', args=0)),
     ]
 
-Fields
-------
+### Multi-database support
+
+If there are multiple db objects defined all there is to do is add a plugins.web2admin.dbs parameter that is a tuple of databases objects. By default the list has only one element named db, so if, for whatever reason, the only object is named differently please add specify it like this: plugins.web2admin.dbs = (my_special_db,) <-- mind the comma. 
+
+	plugins.web2admin.dbs = (db, other_db, session_db)
+
+A *Databases* menu should appear in the top navbar to enable database selection.
+
+### Fields
 
 You can restrict the fields to be displayed for specific tables by setting the plugins.web2admin.fields to a dictionary of table names and list of fields from those tables:
 
@@ -69,8 +75,7 @@ You can restrict the fields to be displayed for specific tables by setting the p
 		'student':[db.student.id, db.student.first_name]
 	}
 
-Actions
--------
+### Actions
 
 ![Actions](http://cloud.github.com/downloads/rif/web2admin/actions.jpg)
 
