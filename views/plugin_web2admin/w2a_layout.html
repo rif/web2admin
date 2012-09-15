@@ -32,15 +32,24 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+       <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
 
   </head>
 
   <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="flash">{{=response.flash or ''}}</div>
       <div class="navbar-inner">
         <div class="container-fluid">
-
           <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
           
           {{if len(plugins.web2admin.dbs)>1:}}
@@ -67,7 +76,6 @@
     </div>
 
     <div class="container-fluid">
-      <div class="flash">{{=response.flash or ''}}</div>
       <div class="row-fluid">
         <div class="span9">
           {{block center}}
