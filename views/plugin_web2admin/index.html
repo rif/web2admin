@@ -22,16 +22,14 @@
         {{=table}} 
       </td>
       <td>
-        {{=cdb()(cdb()[table]).count()}}
+        {{=w2p_db(w2p_db[table]).count()}}
       </td>
       <td>
         <a class="btn btn-mini" href="{{=URL('plugin_web2admin','view_table', args=table)}}">
           <i class="icon-zoom-in"></i>{{=T('View')}}
         </a>
-        <a class="fields-link btn btn-mini"
-           href="{{=URL('plugin_web2admin', 'fields', args=table)}}"
-           data-toggle="modal" data-target="#fieldsModal">
-          <i class="icon-zoom-in"></i>{{=T('Fields')}}
+        <a class="btn btn-mini btn-info" href="{{=URL('plugin_web2admin', 'fields', args=table)}}" data-toggle="modal" data-target="#fieldsModal">
+          <i class="icon-th-list"></i>{{=T('Fields')}}
         </a>
       </td>
     </tr>
@@ -47,9 +45,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="fieldsModalLabel">{{=T('Fields')}}</h3>
   </div>
-  <div id="fields-body" class="modal-body">
-    
-  </div>
+  <div id="fields-body" class="modal-body"></div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>

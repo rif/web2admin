@@ -1,5 +1,11 @@
 a0, a1 = request.args(0), request.args(1)
 
+auth_tables = ('auth_user', 'auth_group', 'auth_membership', 'auth_permission',
+               'auth_event', 'auth_cas')
+
+perms = ('w2a_read', 'w2a_create', 'w2a_select', 'w2a_edit', 'w2a_delete',
+         'w2a_export')
+
 def check_access(table, perm):
     return auth.is_logged_in() and \
         (auth.has_membership(role='w2a_root') or \
@@ -10,15 +16,15 @@ def check_access(table, perm):
 
 @auth.requires(check_access(a0, 'w2a_delete'))
 def delete_action(table, ids):
-    to_delete = cdb()(cdb()[table].id.belongs(ids))
+    to_delete = w2p_db(w2p_db[table].id.belongs(ids))
     to_delete.delete()
 
 @auth.requires(check_access(a0, 'w2a_create'))
 def clone_action(table, ids):
-    t = cdb()[table]
+    t = w2p_db[table]
     fields = t.fields
     to_insert = []
-    for row in cdb()(t.id.belongs(ids)).select():
+    for row in w2p_db(t.id.belongs(ids)).select():
         to_clone = {}
         for field in fields:
             if field != t._id.name:
@@ -41,31 +47,16 @@ plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 def cdb(index=-1):
     """Returns the specified database form the list or the
     currently (session) selected"""
-    if index > -1:
-        return plugins.web2admin.dbs[index]
-    return plugins.web2admin.dbs[session.dbindex or 0]
+    return plugins.web2admin.dbs[index] if index > -1 \
+        else plugins.web2admin.dbs[session.dbindex or 0]
 
+w2p_db = cdb()
+w2p_def_db = cdb(0)
 
-w2a_history = cdb(0).define_table('plugin_web2admin_history',
+w2a_history = w2p_def_db.define_table('plugin_web2admin_history',
     Field('action'),
     auth.signature
 )
-
-auth_tables = ('auth_user',
-               'auth_group',
-               'auth_membership',
-               'auth_permission',
-               'auth_event',
-               'auth_cas'
-)
-
-perms = ('w2a_read',
-               'w2a_create',
-               'w2a_select',
-               'w2a_edit',
-               'w2a_delete',
-               'w2a_export')
-
 
 def action_dispatch(table, ids, action):
     """ This is called on selectable submit and dispatches
@@ -82,12 +73,11 @@ def action_dispatch(table, ids, action):
 def history_callback(table, form, action):
     """Called on creation and updating events"""
     if action == 'deleted':
-        # now form is a record_id
-        w2a_history.insert(action=T('%s a %s (%s)') % (action, table, form))
-        return
-    format = cdb()[table]._format
-    name = '(%s)' % form.vars.id
-    if format:
-        if callable(format): name = format(form.vars)
-        else: name = format % form.vars
+        name = form
+    else:
+        format = w2p_db[table]._format
+        name = '(%s)' % form.vars.id
+        if format:
+            if callable(format): name = format(form.vars)
+            else: name = format % form.vars
     w2a_history.insert(action=T('%s a %s: %s') % (action, table, name))

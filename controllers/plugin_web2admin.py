@@ -1,16 +1,16 @@
 @auth.requires_login()
 def index():
-    tables = [table for table in cdb().tables if check_access(table, 'w2a_read')]
+    tables = [table for table in w2p_db.tables if check_access(table, 'w2a_read')]
     return locals()
 
 @auth.requires(check_access(a0, 'w2a_read'))
 def  view_table():
     """The main function for table grid display"""
-    table = a0 or 'auth_user'
-    if not table in cdb().tables(): redirect(URL('error'))
+    table = a0 or redirect(URL('error'))
+    if not table in w2p_db.tables(): redirect(URL('error'))
     actions = plugins.web2admin.actions
     form = SQLFORM.factory(Field('action', requires=IS_IN_SET(actions.keys()))) if actions else None
-    grid = SQLFORM.smartgrid(cdb()[table],args=request.args[:1],
+    grid = SQLFORM.smartgrid(w2p_db[table],args=request.args[:1],
                              fields = plugins.web2admin.fields[table] if table in plugins.web2admin.fields else None,
                              create = check_access(table, 'w2a_create'),
                              searchable = check_access(table, 'w2a_select'),
@@ -28,7 +28,7 @@ def  view_table():
 
 @auth.requires_login()
 def history():
-    logs = cdb(0)(w2a_history).select(orderby=~w2a_history.id)[:5]
+    logs = w2p_def_db(w2a_history).select(orderby=~w2a_history.id)[:5]
     return locals()
 
 @auth.requires_login()
@@ -40,8 +40,8 @@ def change_db():
 @auth.requires(auth.has_membership('w2a_root') or auth.has_membership('w2a_manager'))
 def fields():
     table = a0
-    if not table in cdb().tables(): redirect(URL('error'))
-    table = cdb()[table]
+    if not table in w2p_db.tables(): redirect(URL('error'))
+    table = w2p_db[table]
     return locals()
 
 @auth.requires_membership('w2a_root')
@@ -53,11 +53,11 @@ def permissions():
               default=True,
               widget=SQLFORM.widgets.options.widget),
         Field('users', 'list:int',
-              requires = IS_IN_DB(cdb(0), cdb(0).auth_user.id, '%(first_name)s %(last_name)s', multiple=True)),
+              requires = IS_IN_DB(w2p_def_db, w2p_def_db.auth_user.id, '%(first_name)s %(last_name)s', multiple=True)),
         Field('groups', 'list:int',
-              requires = IS_IN_DB(cdb(0), cdb(0).auth_group.id, '%(role)s %(description)s', multiple=True)),
+              requires = IS_IN_DB(w2p_def_db, w2p_def_db.auth_group.id, '%(role)s %(description)s', multiple=True)),
         Field('tables', 'list:string',
-              requires=IS_IN_SET(cdb(0).tables, multiple=True)),
+              requires=IS_IN_SET(w2p_def_db.tables, multiple=True)),
         Field('permissions', 'list:string',
               requires= IS_IN_SET(perms, multiple=True ),
               widget=SQLFORM.widgets.checkboxes.widget)
@@ -75,7 +75,7 @@ def permissions():
                     action(group_id, perm, table, 0)
     elif form.errors:
         response.flash = T('form has errors')
-    grid = SQLFORM.smartgrid(cdb(0).auth_permission)
+    grid = SQLFORM.smartgrid(w2p_def_db.auth_permission)
     return locals()
 
 def error():
