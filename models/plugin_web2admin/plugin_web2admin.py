@@ -16,15 +16,15 @@ def check_access(table, perm):
 
 @auth.requires(check_access(a0, 'w2a_delete'))
 def delete_action(table, ids):
-    to_delete = w2p_db(w2p_db[table].id.belongs(ids))
+    to_delete = w2a_db(w2a_db[table].id.belongs(ids))
     to_delete.delete()
 
 @auth.requires(check_access(a0, 'w2a_create'))
 def clone_action(table, ids):
-    t = w2p_db[table]
+    t = w2a_db[table]
     fields = t.fields
     to_insert = []
-    for row in w2p_db(t.id.belongs(ids)).select():
+    for row in w2a_db(t.id.belongs(ids)).select():
         to_clone = {}
         for field in fields:
             if field != t._id.name:
@@ -50,10 +50,10 @@ def cdb(index=-1):
     return plugins.web2admin.dbs[index] if index > -1 \
         else plugins.web2admin.dbs[session.dbindex or 0]
 
-w2p_db = cdb()
-w2p_def_db = cdb(0)
+w2a_db = cdb()
+w2a_def_db = cdb(0)
 
-w2a_history = w2p_def_db.define_table('plugin_web2admin_history',
+w2a_history = w2a_def_db.define_table('plugin_web2admin_history',
     Field('action'),
     auth.signature
 )
@@ -75,7 +75,7 @@ def history_callback(table, form, action):
     if action == 'deleted':
         name = form
     else:
-        format = w2p_db[table]._format
+        format = w2a_db[table]._format
         name = '(%s)' % form.vars.id
         if format:
             if callable(format): name = format(form.vars)

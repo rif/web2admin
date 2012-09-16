@@ -69,13 +69,10 @@
             </li>
           </ul>
           {{pass}}
-          <form class="navbar-form pull-left">
-       <select></select>
-  <input type="text" class="span2">
-  <button type="submit" class="btn">Submit</button>
-</form>
-          
           <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
+          <form class="navbar-search pull-right">
+            <input id="masterSearch" type="hidden">
+          </form>          
         </div>
       </div>
     </div>
@@ -151,5 +148,31 @@
 
       <script src="{{=URL('static','plugin_web2admin/js/bootstrap.min.js')}}"></script>
       <script src="{{=URL('static','plugin_web2admin/js/select2.min.js')}}"></script>
+      <script type="text/javascript">
+        $(function(){
+        var query = ''
+        $("#masterSearch").select2({
+            placeholder: "Search",
+            width: "200px",
+            minimumInputLength: 3,
+            ajax: {
+                url: "{{=URL('plugin_web2admin', 'master_search.load')}}",
+                data: function (term, page) {
+                	query = term; // used on change event
+                    return {
+                        q: term, // search term
+                        page_limit: 10,
+                    };
+                },
+                results: function (data, page) { 
+                    return {results: eval(data)}
+                }
+            },
+        });
+        $("#masterSearch").on("change",function(ev){
+        	window.location.href= "{{=URL('plugin_web2admin', 'view_table')}}/"+ev.val+"/"+ev.val+"?keywords="+query;
+        });
+        });
+      </script>
   </body>
 </html>
