@@ -29,8 +29,8 @@ def clone_action(table, ids):
         for field in fields:
             if field != t._id.name:
                 to_clone[field] = row[field]
-                to_insert.append(to_clone)
-        t.bulk_insert(to_insert)
+        to_insert.append(to_clone)
+    t.bulk_insert(to_insert)
 
 from gluon.tools import PluginManager
 plugins = PluginManager('web2admin',
