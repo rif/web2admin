@@ -53,10 +53,11 @@ def cdb(index=-1):
 w2a_db = cdb()
 w2a_def_db = cdb(0)
 
-w2a_history = w2a_def_db.define_table('plugin_web2admin_history',
+w2a_def_db.define_table('plugin_web2admin_history',
     Field('action'),
     auth.signature
 )
+w2a_history = w2a_def_db.plugin_web2admin_history
 
 def action_dispatch(table, ids, action):
     """ This is called on selectable submit and dispatches
