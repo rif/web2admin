@@ -2,5 +2,5 @@
 
 git co master
 git merge devel
-./create_plugin.sh
+tar czvf ~/Ubuntu\ One/web2py.plugin.web2admin.w2p --exclude='*.sh' *
 git co devel

@@ -11,7 +11,7 @@ It takes security very seriously and uses both groups and permissions for fine-g
 
 Installation
 ------------
- - Download the [plugin installer](https://github.com/downloads/rif/web2admin/web2py.plugin.web2admin.w2p) and install it via the web2py interface.
+ - Download the [plugin installer](http://ubuntuone.com/7k58gytjn9XUleEXFqevSO) and install it via the web2py interface.
  
 or
   
