@@ -1,155 +1,72 @@
-<!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]><html class="ie ie6 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
-<!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
-<!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
-<!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
-<html lang="{{=T.accepted_language or 'en'}}">
-  <head>
-    <meta charset="utf-8">
-     <!--[if IE]>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
-      <![endif]-->
-    <title>web2admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="web2py administration">
+{{left_sidebar_enabled,right_sidebar_enabled=False,True}}
+{{extend 'layout.html'}}
 
-    {{
-    response.files.append(URL('static','plugin_web2admin/css/bootstrap.min.css'))
-    response.files.append(URL('static','plugin_web2admin/css/bootstrap-responsive.min.css'))
-    response.files.append(URL('static','plugin_web2admin/css/web2py.css'))
-    response.files.append(URL('static','plugin_web2admin/css/web2py_bootstrap.css'))
-    response.files.append(URL('static','plugin_web2admin/css/select2.css'))
-    response.files.insert(0,URL('static','plugin_web2admin/js/jquery.js'))
-    response.files.insert(1,URL('static','plugin_web2admin/css/calendar.css'))
-    response.files.insert(2,URL('static','plugin_web2admin/js/calendar.js'))
-    response.files.insert(3,URL('static','plugin_web2admin/js/web2py.js'))
-    response.include_files()
-    }}
- 
-    <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-       <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
 
-  </head>
+{{ block head}}
+<link href="{{=URL('static', 'plugin_web2admin/css/select2.css')}}" rel="stylesheet" type="text/css" />
+{{end}}
 
-  <body>
+{{block center}}
+{{include}}
+{{end}}
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="flash">{{=response.flash or ''}}</div>
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>
-          
-          {{if len(plugins.web2admin.dbs)>1:}}
-          <ul class="nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                {{=T('Databases')}}
-              </a>
-              <ul class="dropdown-menu">
-                {{for i, b in enumerate(plugins.web2admin.dbs):}}
-                <li><a tabindex="-1" href="{{=URL('plugin_web2admin', 'change_db', args=i)}}">
-                    {{if i== session.dbindex:}}<i class="icon-ok"></i>{{pass}}
-                    {{=b._uri}}
-                </a></li>
-                {{pass}}
-              </ul>
-            </li>
-          </ul>
-          {{pass}}
-          <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
-          <form class="navbar-search pull-right">
-            <input id="masterSearch" type="hidden">
-          </form>          
-        </div>
-      </div>
-    </div>
+{{block right_sidebar}}
+<div class="well sidebar-nav">
+  <ul class="nav nav-list">
+    <li class="nav-header">{{=T('Tables')}}</li>
+    <li><a href="{{=URL('plugin_web2admin', 'index')}}">{{=T('home')}}</a></li>
+    {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
+    {{if auth.has_membership('w2a_root'):}}
+    <li class="nav-header">w2a Root</li>
+    <a href="{{=URL('plugin_web2admin','permissions')}}">Manage permissions</a>
+    {{pass}}
+    {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}
+    <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
+    {{for link in plugins.web2admin.custom_sidebar_links:}}
+    <li>{{=link}}<li>
+      {{pass}}
+      {{pass}}
+      {{=LOAD('plugin_web2admin', 'history.load', ajax=True)}}
+  </ul>
+</div><!--/.well -->
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span9">
-          {{block center}}
-	      {{include}}
-	      {{end}}
-        </div><!--/span-->
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">{{=T('Tables')}}</li>
-              <li><a href="{{=URL('plugin_web2admin', 'index')}}">{{=T('home')}}</a></li>
-              {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
-              {{if auth.has_membership('w2a_root'):}}
-              <li class="nav-header">w2a Root</li>
-              <a href="{{=URL('plugin_web2admin','permissions')}}">Manage permissions</a>
-              {{pass}}
-              {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}
-              <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
-              {{for link in plugins.web2admin.custom_sidebar_links:}}
-              <li>{{=link}}<li>
-              {{pass}}
-              {{pass}}
-              {{=LOAD('plugin_web2admin', 'history.load', ajax=True)}}
-            </ul>
-          </div><!--/.well -->
-        </div--><!--/span-->
-      </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <div id="poweredBy" class="pull-right">
-	      {{=T('Powered by')}}
-	      <a href="http://www.web2py.com/">web2py</a>
-	    </div>
-      </footer>
-
-    </div><!--/.fluid-container-->
-      <script type="text/javascript"><!--
-    // These variables are used by the web2py_ajax_init function in web2py_ajax.js (which is loaded below).
-    var w2p_ajax_confirm_message = "{{=T('Are you sure you want to delete this object?')}}";
-    var w2p_ajax_date_format = "{{=T('%Y-%m-%d')}}";
-    var w2p_ajax_datetime_format = "{{=T('%Y-%m-%d %H:%M:%S')}}";
-    //--></script>
-        <script>
-    // this code improves bootstrap menus and adds dropdown support
-    jQuery(function(){
-      jQuery('.nav>li>a').each(function(){
-        if(jQuery(this).parent().find('ul').length)
-          jQuery(this).attr({'class':'dropdown-toggle','data-toggle':'dropdown'}).append('<b class="caret"></b>');
-      });
-      jQuery('.nav li li').each(function(){
-        if(jQuery(this).find('ul').length)
-          jQuery(this).children('a').contents().before('<i class="chevron-right"></i>');
-      });
-      if(jQuery(document).width()>=980) {
-        jQuery('ul.nav li.dropdown').hover(function() {
-          jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
-        }, function() {
-          jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut();
-        });
-      }
-      jQuery('ul.nav li.dropdown a').click(function(){window.location=jQuery(this).attr('href');});
-      // make all buttons bootstrap buttons
-      jQuery('button, form input[type="submit"], form input[type="button"]').addClass('btn').css({'margin-right':'2px','margin-bottom':'2px'});
-    });
-  </script>
-
-      <script src="{{=URL('static','plugin_web2admin/js/bootstrap.min.js')}}"></script>
-      <script src="{{=URL('static','plugin_web2admin/js/select2.min.js')}}"></script>
-      <script type="text/javascript">
+{{end}}
+    
+{{block footer}} <!-- this is default footer -->
+{{if len(plugins.web2admin.dbs)>1:}}
+<ul id="db-selector" style="display: none;" class="nav">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      {{=T('Databases')}}
+    </a>
+    <ul class="dropdown-menu">
+      {{for i, b in enumerate(plugins.web2admin.dbs):}}
+      <li><a tabindex="-1" href="{{=URL('plugin_web2admin', 'change_db', args=i)}}">
+          {{if i== session.dbindex:}}<i class="icon-ok"></i>{{pass}}
+          {{=b._uri}}
+      </a></li>
+      {{pass}}
+    </ul>
+  </li>
+</ul>
+{{pass}}
+<div id="poweredBy" class="pull-right">
+  {{=T('Powered by')}}
+  <a href="http://www.web2py.com/">web2py</a>
+</div>
+<script src="{{=URL('static','plugin_web2admin/js/select2.min.js')}}"></script>
+<script type="text/javascript">
         $(function(){
+        /* Remove unwanted elements */
+        $("#header").html("");
+        $(".nav-collapse").remove();
+        $(".brand").replaceWith('<a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>');
+        /* Add database selector */
+        if ($("#db-selector").length > 0) {
+        $(".brand").after($("#db-selector").show());
+        }
+        /* Add master search*/
+        $("#navbar").after('<form class="navbar-search pull-right"><input id="masterSearch" type="hidden"></form>');
         var query = ''
         $("#masterSearch").select2({
             placeholder: "Search",
@@ -174,5 +91,6 @@
         });
         });
       </script>
-  </body>
-</html>
+{{end}}
+
+
