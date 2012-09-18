@@ -44,6 +44,8 @@ plugins = PluginManager('web2admin',
                         headers = {},
                         orderby = {},
                         left = {},
+                        maxtextlength = {},
+                        maxtextlengths = {},
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 

@@ -26,8 +26,9 @@ def  view_table():
                              onupdate = lambda form: history_callback(table, form, 'updated'),
                              ondelete = lambda table, record_id: history_callback(table, record_id, 'deleted'),
                              headers = plugins.web2admin.headers,
-                             orderby = plugins.web2admin.orderby.get(table)
-
+                             orderby = plugins.web2admin.orderby.get(table),
+                             maxtextlength = plugins.web2admin.maxtextlength.get(table) or 20,
+                             maxtextlengths = plugins.web2admin.maxtextlengths,
     )
     return locals()
 

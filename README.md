@@ -65,6 +65,11 @@ plugins.web2admin.headers is a dictionary that maps 'tablename.fieldname' into t
 plugins.web2admin.orderby is a dictionary that is used to set the default ordering for the table rows:
 
 	plugins.web2admin.orderby = {'student': db.student.last_name}	
+
+plugins.web2admin.maxtextlength sets the maximum length of text to be displayed for each field value, in the grid view (default 20). This value can be overwritten for each field using plugins.web2admin.maxtextlengths, a dictionary of 'tablename.fieldname':length. If text must be truncated then an extra len('...') = 3 is substracted from the specified length.  
+
+	plugins.web2admin.maxtextlength ={'student': 10}
+	plugins.web2admin.maxtextlengths ={'test.name': 5}
 	
 ### Multi-database support
 
