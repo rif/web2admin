@@ -40,6 +40,7 @@ plugins = PluginManager('web2admin',
                         actions = {},
                         fields = {},
                         dbs = (db,),
+                        headers = {},
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 

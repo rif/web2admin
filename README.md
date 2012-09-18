@@ -58,6 +58,11 @@ Add extra links in sidebar:
         A('Back to homepage', _href=URL('default', 'index', args=0)),
     ]
 
+plugins.web2admin.headers is a dictionary that maps 'tablename.fieldname' into the corresponding header label for example:
+
+	plugins.web2admin.headers = {'student.last_name': T('Surname')}
+
+	
 ### Multi-database support
 
 If there are multiple db objects defined all there is to do is add a plugins.web2admin.dbs parameter that is a tuple of databases objects. By default the list has only one element named db, so if, for whatever reason, the only object is named differently please add specify it like this: plugins.web2admin.dbs = (my_special_db,) <-- mind the comma. 

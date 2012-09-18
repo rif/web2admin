@@ -23,6 +23,8 @@ def  view_table():
                              oncreate = lambda form: history_callback(table, form, 'created'),
                              onupdate = lambda form: history_callback(table, form, 'updated'),
                              ondelete = lambda table, record_id: history_callback(table, record_id, 'deleted'),
+                             headers = plugins.web2admin.headers,
+
     )
     return locals()
 
@@ -48,7 +50,7 @@ def master_search():
     tables = [table for table in w2a_db.tables if check_access(table, 'w2a_read')]
     query = request.vars.get('q', '')
     tables_containing_query = []
-    for table in tables: 
+    for table in tables:
         table = w2a_db[table]
         dbset = w2a_db(table)
         fields = [table[field] for field in table.fields]
