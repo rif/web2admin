@@ -19,7 +19,7 @@ def  view_table():
                              deletable = check_access(table, 'w2a_delete'),
                              csv = check_access(table, 'w2a_export'),
                              links = plugins.web2admin.links.get(table),
-                             #left = db.student.on(db.test.id),
+                             left = plugins.web2admin.left.get(table),
                              paginate = plugins.web2admin.items_per_page,
                              selectable = None if not actions else lambda ids: action_dispatch(table, ids, request.vars.action),
                              oncreate = lambda form: history_callback(table, form, 'created'),
