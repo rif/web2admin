@@ -11,7 +11,8 @@ def  view_table():
     actions = plugins.web2admin.actions
     form = SQLFORM.factory(Field('action', requires=IS_IN_SET(actions.keys()))) if actions else None
     grid = SQLFORM.smartgrid(w2a_db[table],args=request.args[:1],
-                             fields = plugins.web2admin.fields[table] if table in plugins.web2admin.fields else None,
+                             fields = plugins.web2admin.fields.get(table),
+                             field_id = plugins.web2admin.field_id.get(table),
                              details = check_access(table, 'w2a_read'),
                              create = check_access(table, 'w2a_create'),
                              searchable = check_access(table, 'w2a_select'),

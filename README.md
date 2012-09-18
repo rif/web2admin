@@ -66,10 +66,14 @@ plugins.web2admin.orderby is a dictionary that is used to set the default orderi
 
 	plugins.web2admin.orderby = {'student': db.student.last_name}	
 
-plugins.web2admin.maxtextlength sets the maximum length of text to be displayed for each field value, in the grid view (default 20). This value can be overwritten for each field using plugins.web2admin.maxtextlengths, a dictionary of 'tablename.fieldname':length. If text must be truncated then an extra len('...') = 3 is substracted from the specified length.  
+plugins.web2admin.maxtextlength sets the maximum length of text to be displayed for each field value, in the grid view (default 20). This value can be overwritten for each field using plugins.web2admin.maxtextlengths, a dictionary of 'tablename.fieldname':length. If text must be truncated then an extra len('...') = 3 is substracted from the specified length.fiel  
 
 	plugins.web2admin.maxtextlength ={'student': 10}
 	plugins.web2admin.maxtextlengths ={'test.name': 5}
+
+plugins.web2admin.field_id is a dictionaty specifying the the field of the table to be used as ID, for example:
+
+	plugins.web2admin.field_id = {'student', db.stuident.id}
 	
 ### Multi-database support
 
@@ -119,7 +123,6 @@ plugins.web2admin.links is used to display new columns which can be links to oth
 		]}
                                             
 ### Left join
-
 plugins.web2admin.left is an optional left join expressions used to build ...select(left=...). It has the value of a dictionary linking the table name and the join expression, for example:
 
 	plugins.web2admin.left = {'student': db.student.on(db.test.id)}
