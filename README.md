@@ -66,6 +66,10 @@ plugins.web2admin.orderby is a dictionary that is used to set the default orderi
 
 	plugins.web2admin.orderby = {'student': db.student.last_name}	
 
+plugins.web2admin.groupby is a dictionary that is used to set the grouping for the table rows. You can group records with the same value for the specified field (this is back-end specific, and is not on the Google NoSQL):
+
+	plugins.web2admin.groupby = {'student': db.student.last_name}	
+
 plugins.web2admin.maxtextlength sets the maximum length of text to be displayed for each field value, in the grid view (default 20). This value can be overwritten for each field using plugins.web2admin.maxtextlengths, a dictionary of 'tablename.fieldname':length. If text must be truncated then an extra len('...') = 3 is substracted from the specified length.fiel  
 
 	plugins.web2admin.maxtextlength ={'student': 10}
@@ -74,7 +78,11 @@ plugins.web2admin.maxtextlength sets the maximum length of text to be displayed 
 plugins.web2admin.field_id is a dictionaty specifying the the field of the table to be used as ID, for example:
 
 	plugins.web2admin.field_id = {'student', db.stuident.id}
+
+plugins.web2admin.showbuttontext boolean switch to show/hide button text: 
 	
+	plugins.web2admin.showbuttontext = False	
+
 ### Multi-database support
 
 If there are multiple db objects defined all there is to do is add a plugins.web2admin.dbs parameter that is a tuple of databases objects. By default the list has only one element named db, so if, for whatever reason, the only object is named differently please add specify it like this: plugins.web2admin.dbs = (my_special_db,) <-- mind the comma. 
