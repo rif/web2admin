@@ -39,8 +39,10 @@ plugins = PluginManager('web2admin',
                                            'clone': clone_action},
                         actions = {},
                         fields = {},
+                        links = {},
                         dbs = (db,),
                         headers = {},
+                        orderby = {},
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 

@@ -12,11 +12,13 @@ def  view_table():
     form = SQLFORM.factory(Field('action', requires=IS_IN_SET(actions.keys()))) if actions else None
     grid = SQLFORM.smartgrid(w2a_db[table],args=request.args[:1],
                              fields = plugins.web2admin.fields[table] if table in plugins.web2admin.fields else None,
+                             details = check_access(table, 'w2a_read'),
                              create = check_access(table, 'w2a_create'),
                              searchable = check_access(table, 'w2a_select'),
                              editable = check_access(table, 'w2a_edit'),
                              deletable = check_access(table, 'w2a_delete'),
                              csv = check_access(table, 'w2a_export'),
+                             links = plugins.web2admin.links.get(table),
                              #left = db.student.on(db.test.id),
                              paginate = plugins.web2admin.items_per_page,
                              selectable = None if not actions else lambda ids: action_dispatch(table, ids, request.vars.action),
@@ -24,6 +26,7 @@ def  view_table():
                              onupdate = lambda form: history_callback(table, form, 'updated'),
                              ondelete = lambda table, record_id: history_callback(table, record_id, 'deleted'),
                              headers = plugins.web2admin.headers,
+                             orderby = plugins.web2admin.orderby.get(table)
 
     )
     return locals()

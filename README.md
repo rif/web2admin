@@ -62,6 +62,9 @@ plugins.web2admin.headers is a dictionary that maps 'tablename.fieldname' into t
 
 	plugins.web2admin.headers = {'student.last_name': T('Surname')}
 
+plugins.web2admin.orderby is a dictionary that is used to set the default ordering for the table rows:
+
+	plugins.web2admin.orderby = {'student': db.student.last_name}	
 	
 ### Multi-database support
 
@@ -101,3 +104,17 @@ To define a new action you must create a function that take as arguments a table
 If you want to disable the default actions or you want no actions at all (if you did not create any), you can set the plugins.web2admin.default_actions parameter to an empty dictionary.
  
 	plugins.web2admin.default_actions={} 
+
+### Custom column links
+plugins.web2admin.links is used to display new columns which can be links to other pages. The links argument must be a dictionary linking a tablename to a list of dict(header='name',body=lambda row: A(...)) where header is the header of the new column and body is a function that takes a row and returns a value. In the example, the value is a A(...) helper.
+
+	plugins.web2admin.links = {'student':[
+		dict(header=T('hello'), body=lambda row: A('click me', _href=URL('default', 'hello', args=row.id))),
+		dict(header=T('foo'), body=lambda row: A('bar', _href=URL('default', 'foo', args=row.id))),
+		]}
+                                            
+### Left join
+
+plugins.web2admin.left is an optional left join expressions used to build ...select(left=...). It has the value of a dictionary linking the table name and the join expression, for example:
+
+	plugins.web2admin.left = {'student': db.student.on(db.test.id)}
