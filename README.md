@@ -136,9 +136,9 @@ plugins.web2admin.left is an optional left join expressions used to build ...sel
 	plugins.web2admin.left = {'student': db.student.on(db.test.id)}
 
 ### Filters
-plugins.web2admin.filters is a list of fields by which a quick filter will pe created in the right menu bar, e.g.: 
+plugins.web2admin.filters is a list of fields by which a quick filter will be created in the right menu bar, e.g.: 
 
-	plugins.web2admin.filters = (db.test.date, db.test.passed, db.test.mark, db.student.last_name)
+	plugins.web2admin.filters = (db.test.date, db.test.passed, db.test.mark, db.test.name, db.student.last_name)
 
 ![Filters](http://cloud.github.com/downloads/rif/web2admin/filters.jpg)
 
