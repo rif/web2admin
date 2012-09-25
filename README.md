@@ -143,3 +143,4 @@ plugins.web2admin.filters is a list of fields by which a quick filter will be cr
 ![Filters](http://cloud.github.com/downloads/rif/web2admin/filters.jpg)
 
 For numeric fields the min and max values are obtained and the interval is split in four subintervals.
+Supported field types: datetime, date, string, text, integer, double, boolean.
