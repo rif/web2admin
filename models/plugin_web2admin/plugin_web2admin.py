@@ -48,6 +48,7 @@ plugins = PluginManager('web2admin',
                         maxtextlength = {},
                         maxtextlengths = {},
                         showbuttontext = True,
+                        filters = {},
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 
@@ -89,3 +90,107 @@ def history_callback(table, form, action):
             if callable(format): name = format(form.vars)
             else: name = format % form.vars
     w2a_history.insert(action=T('%s a %s: %s') % (action, table, name))
+
+
+def get_filter_links(field):
+    """Return filter links for specified field"""
+    links = []
+    return {
+        'datetime': datetime_filter,
+        'date': datetime_filter,
+        'string': string_filter,
+        'text': string_filter,
+        'integer': number_filter,
+        'double': number_filter,
+        'boolean': bool_filter,
+    }[field.type](field)
+
+def bool_filter(field):
+    table = field.table._tablename
+    return LI([
+        SPAN(T('By %s' % field.name)),
+        A(T('All'), _href=URL('plugin_web2admin', 'view_table',
+                              args=table)),
+        A(T('Yes'), _href=URL('plugin_web2admin', 'view_table',
+                              args=(table, table),
+                              vars={'keywords':'%s="T"' % str(field)})),
+        A(T('No'), _href=URL('plugin_web2admin', 'view_table',
+                            args=(table, table),
+                              vars={'keywords':'%s="F"' % str(field)}))
+    ])
+
+def number_filter(field):
+    table = field.table._tablename
+    max = field.max()
+    max = db().select(max).first()[max]
+    min = field.min()
+    min = db().select(min).first()[min]
+    med = (max-min)/2
+    low_quarter = med/2
+    high_quarter = med + low_quarter
+    return LI([
+        SPAN(T('By %s' % field.name)),
+        A(T('All'), _href=URL('plugin_web2admin', 'view_table', args=table)),
+        A(T('Less than %d' % low_quarter),
+          _href=URL('plugin_web2admin', 'view_table',
+                    args=(table, table),
+                    vars={'keywords':'%s<"%d"' % (
+                        str(field), low_quarter)})),
+        A(T('Between %d and %d' % (low_quarter, med)),
+          _href=URL('plugin_web2admin', 'view_table',
+                    args=(table, table),
+                    vars={'keywords':'%s>="%d" and %s<"%d"' % (
+                        str(field), low_quarter,
+                        str(field), med)})),
+        A(T('Between %d and %d' % (med, high_quarter)),
+          _href=URL('plugin_web2admin', 'view_table',
+                    args=(table, table),
+                    vars={'keywords':'%s>="%d" and %s<"%d"' % (
+                        str(field), med,
+                        str(field), high_quarter)})),
+        A(T('More than %d' % high_quarter),
+          _href=URL('plugin_web2admin', 'view_table',
+                    args=(table, table),
+                    vars={'keywords':'%s>="%d"' % (
+                        str(field), high_quarter)}))
+    ])
+
+def string_filter(field):
+    import string
+    table = field.table._tablename
+    links =[A(T('%s' % letter), _style="display:inline;margin:1px;padding:1px;",
+              _href=URL('plugin_web2admin', 'view_table',
+                args=(table, table),
+                vars={'keywords':'%s starts with "%s"' % (str(field), letter)}))
+     for letter in string.lowercase]
+    links.insert(0, DIV(T('By %s' % field.name)))
+    links.insert(1, A(T('All'), _href=URL('plugin_web2admin', 'view_table',
+                                args=table)))
+    links.insert(15, DIV())
+    return LI(links)
+
+def datetime_filter(field):
+    import datetime
+    table = field.table._tablename
+    today = datetime.date.today()
+    seven_days_ago = today - datetime.timedelta(7)
+    return LI([
+        SPAN(T('By %s' % field.name)),
+        A(T('Any date'), _href=URL('plugin_web2admin', 'view_table',
+                                   args=table)),
+        A(T('Last 7 days'), _href=URL('plugin_web2admin', 'view_table',
+                                   args=(table, table),
+                                   vars={'keywords':'%s>"%s"' % (
+                                       str(field),
+                                       seven_days_ago.strftime('%Y-%m-%d'))})),
+        A(T('This month'), _href=URL('plugin_web2admin', 'view_table',
+                                      args=(table, table),
+                                      vars={'keywords':'%s>"%s-01"'% (
+                                          str(field),
+                                          today.strftime('%Y-%m'))})),
+        A(T('This year'), _href=URL('plugin_web2admin', 'view_table',
+                                      args=(table, table),
+                                      vars={'keywords':'%s>"%s-01-01"' % (
+                                          str(field),
+                                          today.strftime('%Y'))}))
+    ])

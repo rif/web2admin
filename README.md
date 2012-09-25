@@ -134,3 +134,12 @@ plugins.web2admin.links is used to display new columns which can be links to oth
 plugins.web2admin.left is an optional left join expressions used to build ...select(left=...). It has the value of a dictionary linking the table name and the join expression, for example:
 
 	plugins.web2admin.left = {'student': db.student.on(db.test.id)}
+
+### Filters
+plugins.web2admin.filters is a list of fields by which a quick filter will pe created in the right menu bar, e.g.: 
+
+	plugins.web2admin.filters = (db.test.date, db.test.passed, db.test.mark, db.student.last_name)
+
+![Filters](http://cloud.github.com/downloads/rif/web2admin/filters.jpg)
+
+For numeric fields the min and max values are obtained and the interval is split in four subintervals.

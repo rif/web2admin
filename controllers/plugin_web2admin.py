@@ -8,7 +8,7 @@ def  view_table():
     """The main function for table grid display"""
     table = a0 or redirect(URL('error'))
     if not table in w2a_db.tables(): redirect(URL('error'))
-    actions = plugins.web2admin.actions
+    actions = plugins.web2admin.actions        
     form = SQLFORM.factory(Field('action', requires=IS_IN_SET(actions.keys()))) if actions else None
     grid = SQLFORM.smartgrid(w2a_db[table],args=request.args[:1],
                              fields = plugins.web2admin.fields.get(table),
@@ -32,6 +32,10 @@ def  view_table():
                              maxtextlengths = plugins.web2admin.maxtextlengths,
                              showbuttontext=plugins.web2admin.showbuttontext,
     )
+    w2a_filters = []
+    for fltr in plugins.web2admin.filters:        
+        if fltr.name in w2a_db[table].fields:            
+            w2a_filters.append(fltr)
     return locals()
 
 @auth.requires_login()

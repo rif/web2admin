@@ -19,7 +19,9 @@
     {{for table in tables:}}
     <tr>
       <td>
+        <a href="{{=URL('plugin_web2admin','view_table', args=table)}}">
         {{=table}} 
+        </a>
       </td>
       <td>
         {{=w2a_db(w2a_db[table]).count()}}
