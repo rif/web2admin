@@ -108,7 +108,7 @@ def get_filter_links(field):
 def bool_filter(field):
     table = field.table._tablename
     return LI([
-        SPAN(T('By %s' % field.name)),
+        SPAN(T('By %s' % field.name), _class="muted"),
         A(T('All'), _href=URL('plugin_web2admin', 'view_table',
                               args=table)),
         A(T('Yes'), _href=URL('plugin_web2admin', 'view_table',
@@ -129,7 +129,7 @@ def number_filter(field):
     low_quarter = med/2
     high_quarter = med + low_quarter
     return LI([
-        SPAN(T('By %s' % field.name)),
+        SPAN(T('By %s' % field.name), _class="muted"),
         A(T('All'), _href=URL('plugin_web2admin', 'view_table', args=table)),
         A(T('Less than %d' % low_quarter),
           _href=URL('plugin_web2admin', 'view_table',
@@ -163,7 +163,7 @@ def string_filter(field):
                 args=(table, table),
                 vars={'keywords':'%s starts with "%s"' % (str(field), letter)}))
      for letter in string.lowercase]
-    links.insert(0, DIV(T('By %s' % field.name)))
+    links.insert(0, DIV(T('By %s' % field.name), _class="muted"))
     links.insert(1, A(T('All'), _href=URL('plugin_web2admin', 'view_table',
                                 args=table)))
     links.insert(15, DIV())
@@ -175,7 +175,7 @@ def datetime_filter(field):
     today = datetime.date.today()
     seven_days_ago = today - datetime.timedelta(7)
     return LI([
-        SPAN(T('By %s' % field.name)),
+        SPAN(T('By %s' % field.name), _class="muted"),
         A(T('Any date'), _href=URL('plugin_web2admin', 'view_table',
                                    args=table)),
         A(T('Last 7 days'), _href=URL('plugin_web2admin', 'view_table',

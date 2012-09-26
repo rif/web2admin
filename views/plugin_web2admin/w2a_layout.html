@@ -13,25 +13,30 @@
 {{block right_sidebar}}
 <div class="well sidebar-nav">
   <ul class="nav nav-list">
+    <!-- Tables -->
     <li class="nav-header">{{=T('Tables')}}</li>
     <li><a href="{{=URL('plugin_web2admin', 'index')}}">{{=T('home')}}</a></li>
     {{=LOAD('plugin_web2admin','index.load', ajax=True)}}
+    <!-- Root menu -->
     {{if auth.has_membership('w2a_root'):}}
     <li class="nav-header">{{=T('w2a Root')}}</li>
     <a href="{{=URL('plugin_web2admin','permissions')}}">{{=T('Manage permissions')}}</a>
     {{pass}}
-    {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}
-      <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
-      {{for link in plugins.web2admin.custom_sidebar_links:}}
-      <li>{{=link}}<li>
-      {{pass}}
-    {{pass}}
+    <!-- Filters -->
     {{if 'w2a_filters' in globals() and w2a_filters:}}
     <li class="nav-header">{{=T('filters')}}</li>
       {{for fltr in w2a_filters:}}
       {{=get_filter_links(fltr)}}
       {{pass}}
     {{pass}}
+    <!-- External links -->
+    {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}
+      <li class="nav-header">{{=plugins.web2admin.custom_sidebar_title}}</li>
+      {{for link in plugins.web2admin.custom_sidebar_links:}}
+      <li>{{=link}}<li>
+      {{pass}}
+    {{pass}}    
+      <!-- History -->
     {{=LOAD('plugin_web2admin', 'history.load', ajax=True)}}
   </ul>
 </div><!--/.well -->
