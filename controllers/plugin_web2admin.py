@@ -40,7 +40,7 @@ def  view_table():
 
 @auth.requires_login()
 def history():
-    logs = w2a_def_db(w2a_history).select(orderby=~w2a_history.id)[:5]
+    logs = w2a_def_db(w2a_history).select(cacheable=True, orderby=~w2a_history.id)[:5]
     return locals()
 
 @auth.requires_login()

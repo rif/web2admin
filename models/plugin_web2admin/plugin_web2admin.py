@@ -24,7 +24,7 @@ def clone_action(table, ids):
     t = w2a_db[table]
     fields = t.fields
     to_insert = []
-    for row in w2a_db(t.id.belongs(ids)).select():
+    for row in w2a_db(t.id.belongs(ids)).select(cacheable=True):
         to_clone = {}
         for field in fields:
             if field != t._id.name:
@@ -122,9 +122,9 @@ def bool_filter(field):
 def number_filter(field):
     table = field.table._tablename
     max = field.max()
-    max = db().select(max).first()[max]
+    max = db().select(max, cacheable=True).first()[max]
     min = field.min()
-    min = db().select(min).first()[min]
+    min = db().select(min, cacheable=True).first()[min]
     med = (max-min)/2
     low_quarter = med/2
     high_quarter = med + low_quarter
