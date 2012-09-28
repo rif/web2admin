@@ -13,7 +13,8 @@ $('#no_table_action').remove();
 }
 /* Add the action select to the table header */
 	if ($('#no_table_action').length > 0) {
-		$('.web2py_grid .web2py_table th:first').html($('#no_table_action'));
+		$('.web2py_grid .web2py_table th:first').html('<input id="checkall" name="checkall" type="checkbox" value="1"> '); 
+		$('.web2py_grid .web2py_table th:first').append($('#no_table_action'));
 		$('#no_table_action').select2({width:'100px',  placeholder:"{{=T('Action')}}"});
 		$('form').submit(function(){
 			var action = $('#no_table_action').val();
@@ -21,6 +22,9 @@ $('#no_table_action').remove();
 				$.post('{{=request.url}}', $(this).serialize() + '&action=' + action);
 				window.location.reload();
 			}
+		});
+		$('#checkall').click(function(){
+			$('.web2py_grid .web2py_table tbody tr>td input[name=records]').attr('checked', $(this).is(':checked'));
 		});
 	}
 });
