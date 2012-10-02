@@ -125,6 +125,7 @@ def number_filter(field):
     max = db().select(max, cacheable=True).first()[max]
     min = field.min()
     min = db().select(min, cacheable=True).first()[min]
+    if not max or not min: return ''
     med = (max-min)/2
     low_quarter = med/2
     high_quarter = med + low_quarter

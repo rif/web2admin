@@ -34,8 +34,7 @@ def  view_table():
     )
     w2a_filters = []
     for fltr in plugins.web2admin.filters:
-        if fltr.name in w2a_db[table].fields:
-            w2a_filters.append(fltr)
+        if fltr.table._tablename == table: w2a_filters.append(fltr)
     return locals()
 
 @auth.requires_login()
