@@ -94,7 +94,6 @@ def history_callback(table, form, action):
 
 def get_filter_links(field):
     """Return filter links for specified field"""
-    links = []
     return {
         'datetime': datetime_filter,
         'date': datetime_filter,
@@ -107,17 +106,17 @@ def get_filter_links(field):
 
 def bool_filter(field):
     table = field.table._tablename
-    return LI([
-        SPAN(T('By %s' % field.name), _class="muted"),
-        A(T('All'), _href=URL('plugin_web2admin', 'view_table',
-                              args=table)),
-        A(T('Yes'), _href=URL('plugin_web2admin', 'view_table',
-                              args=(table, table),
-                              vars={'keywords':'%s="T"' % str(field)})),
-        A(T('No'), _href=URL('plugin_web2admin', 'view_table',
-                            args=(table, table),
-                              vars={'keywords':'%s="F"' % str(field)}))
-    ])
+    return map(LI, (
+            SPAN(T('By %s' % field.name), _class="muted"),
+            A(T('All'), _href=URL('plugin_web2admin', 'view_table',
+                                  args=table)),
+            A(T('Yes'), _href=URL('plugin_web2admin', 'view_table',
+                                  args=(table, table),
+                                  vars={'keywords':'%s="T"' % str(field)})),
+            A(T('No'), _href=URL('plugin_web2admin', 'view_table',
+                                 args=(table, table),
+                                 vars={'keywords':'%s="F"' % str(field)}))
+    ))
 
 def number_filter(field):
     table = field.table._tablename
@@ -129,7 +128,7 @@ def number_filter(field):
     med = (max-min)/2
     low_quarter = med/2
     high_quarter = med + low_quarter
-    return LI([
+    return map(LI, (
         SPAN(T('By %s' % field.name), _class="muted"),
         A(T('All'), _href=URL('plugin_web2admin', 'view_table', args=table)),
         A(T('Less than %d' % low_quarter),
@@ -154,7 +153,7 @@ def number_filter(field):
                     args=(table, table),
                     vars={'keywords':'%s>="%d"' % (
                         str(field), high_quarter)}))
-    ])
+    ))
 
 def string_filter(field):
     import string
@@ -175,7 +174,7 @@ def datetime_filter(field):
     table = field.table._tablename
     today = datetime.date.today()
     seven_days_ago = today - datetime.timedelta(7)
-    return LI([
+    return map(LI, (
         SPAN(T('By %s' % field.name), _class="muted"),
         A(T('Any date'), _href=URL('plugin_web2admin', 'view_table',
                                    args=table)),
@@ -194,4 +193,4 @@ def datetime_filter(field):
                                       vars={'keywords':'%s>"%s-01-01"' % (
                                           str(field),
                                           today.strftime('%Y'))}))
-    ])
+    ))
