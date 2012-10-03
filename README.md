@@ -11,7 +11,7 @@ It takes security very seriously and uses both groups and permissions for fine-g
 
 Installation
 ------------
- - Download the [plugin installer](http://ubuntuone.com/74h2tnyi4cNjMScLa4y1Ki) and install it via the web2py interface.
+ - Download the [plugin installer](https://www.box.com/s/rb4n1fi49dy38ugjbqzk) and install it via the web2py interface.
  
 or
   
