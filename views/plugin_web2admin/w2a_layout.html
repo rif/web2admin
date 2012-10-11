@@ -25,13 +25,9 @@
     <!-- Filters -->
     {{if 'w2a_filters' in globals() and w2a_filters:}}
     <li class="nav-header">{{=T('filters')}}</li>
-      {{
-      for fltr in w2a_filters:
-        for li in get_filter_links(fltr):
-          =li
-        pass
-      pass
-      }}
+      {{for fltr in w2a_filters:}}
+      {{=get_filter_links(fltr)}}
+      {{pass}}
     {{pass}}
     <!-- External links -->
     {{if plugins.web2admin.custom_sidebar_title and plugins.web2admin.custom_sidebar_links:}}

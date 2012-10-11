@@ -3,6 +3,6 @@
 <li class="nav-header">{{=T('History')}}</li> 
 {{for log in logs:}}
 {{u = db.auth_user(log.created_by)}}
-<li class="muted" style="font-size: 95%">{{='%(first_name)s %(last_name)s' % u}} {{=log.action}}, {{=prettydate(log.created_on,T)}}</li>
+<li class="muted" style="font-size: 95%">{{='%(first_name)s %(last_name)s' % u}} {{=log.w2a_action}}, {{=prettydate(log.created_on,T)}}</li>
 {{pass}}
         
