@@ -89,7 +89,7 @@ def history_callback(table, form, action):
         if format:
             if callable(format): name = format(form.vars)
             else: name = format % form.vars
-    w2a_history.insert(action=T('%s a %s: %s') % (action, table, name))
+    w2a_history.insert(w2a_action=T('%s a %s: %s') % (action, table, name))
 
 
 def get_filter_links(field):
