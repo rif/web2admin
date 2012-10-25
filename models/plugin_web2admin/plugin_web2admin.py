@@ -16,15 +16,15 @@ def check_access(table, perm):
 
 @auth.requires(check_access(a0, 'w2a_delete'))
 def delete_action(table, ids):
-    to_delete = w2a_db(w2a_db[table].id.belongs(ids))
+    to_delete = D()(D()[table].id.belongs(ids))
     to_delete.delete()
 
 @auth.requires(check_access(a0, 'w2a_create'))
 def clone_action(table, ids):
-    t = w2a_db[table]
+    t = D()[table]
     fields = t.fields
     to_insert = []
-    for row in w2a_db(t.id.belongs(ids)).select(cacheable=True):
+    for row in D()(t.id.belongs(ids)).select(cacheable=True):
         to_clone = {}
         for field in fields:
             if field != t._id.name:
@@ -52,20 +52,17 @@ plugins = PluginManager('web2admin',
 )
 plugins.web2admin.actions.update(plugins.web2admin.default_actions)
 
-def cdb(index=-1):
+def D(index=-1):
     """Returns the specified database form the list or the
     currently (session) selected"""
     return plugins.web2admin.dbs[index] if index > -1 \
         else plugins.web2admin.dbs[session.dbindex or 0]
 
-w2a_db = cdb()
-w2a_def_db = cdb(0)
-
-w2a_def_db.define_table('plugin_web2admin_history',
+D(0).define_table('plugin_web2admin_history',
     Field('w2a_action'),
     auth.signature
 )
-w2a_history = w2a_def_db.plugin_web2admin_history
+w2a_history = D(0).plugin_web2admin_history
 
 def action_dispatch(table, ids, action):
     """ This is called on selectable submit and dispatches
@@ -84,7 +81,7 @@ def history_callback(table, form, action):
     if action == 'deleted':
         name = form
     else:
-        format = w2a_db[table]._format
+        format = D()[table]._format
         name = '(%s)' % form.vars.id
         if format:
             if callable(format): name = format(form.vars)
