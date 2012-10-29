@@ -61,3 +61,11 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
+
+<script type="text/javascript">
+	$(function(){
+	  $('body').on('hidden', '.modal', function () {
+         $(this).removeData('modal');
+      });
+	});
+</script>
