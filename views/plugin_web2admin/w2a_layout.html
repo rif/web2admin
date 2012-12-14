@@ -71,7 +71,7 @@
         /* Remove unwanted elements */
         $("#header").html("");
         $(".nav-collapse").remove();
-        $(".brand").replaceWith('<a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or 'web2admin'}}</a>');
+        $(".brand").replaceWith('<a class="brand" href="{{=URL('plugin_web2admin', 'index')}}">{{=plugins.web2admin.logo or B('web',SPAN(2),'admin')}}</a>');
         /* Add database selector */
         if ($("#db-selector").length > 0) {
         $(".brand").after($("#db-selector").show());

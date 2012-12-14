@@ -68,10 +68,11 @@ def master_search():
         if query and not ' ' in query and not '"' in query and not "'" in query:
             SEARCHABLE_TYPES = ('string','text','list:string')
             parts = [field.contains(query) for field in fields if field.type in SEARCHABLE_TYPES]
-        if parts and dbset(reduce(lambda a,b: a|b,parts)).count()>0:
-            tables_containing_query.append(table)
+        count = dbset(reduce(lambda a,b: a|b,parts)).count() if parts else 0
+        if count>0:
+            tables_containing_query.append((table, count))
     from simplejson import dumps
-    return dumps([dict(id=t._tablename,text=t._tablename) for t in tables_containing_query])
+    return dumps([dict(id=t._tablename,text=t._tablename + ' (%d)' % c) for t, c in tables_containing_query])
 
 @auth.requires_membership('w2a_root')
 def permissions():
