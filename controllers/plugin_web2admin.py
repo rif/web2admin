@@ -19,6 +19,7 @@ def  view_table():
                              editable = check_access(table, 'w2a_edit'),
                              deletable = check_access(table, 'w2a_delete'),
                              csv = check_access(table, 'w2a_export'),
+                             links_in_grid=False,
                              links = plugins.web2admin.links.get(table),
                              left = plugins.web2admin.left.get(table),
                              paginate = plugins.web2admin.items_per_page,
