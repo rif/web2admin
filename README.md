@@ -14,7 +14,7 @@ Installation
 
 [HERE](http://vimeo.com/60895953) you can find a screencast of the install process.
 
- - Download the [plugin installer](http://ubuntuone.com/74h2tnyi4cNjMScLa4y1Ki) and install it via the web2py interface.
+ - Download the [plugin installer](https://github.com/rif/web2admin/blob/master/web2py.plugin.web2admin.w2p) and install it via the web2py interface.
  
 or
   
