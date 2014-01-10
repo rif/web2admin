@@ -18,7 +18,7 @@ Installation
  
 or
   
- - Clone the web2admin repo and copy content in your app excluding the .git and .gitignore. 
+ - Clone the web2admin repo and copy content in your app excluding the .git* and *.sh. 
 
  The master branch will always contain to the latest stable version
  (the development will be done on another branch).
