@@ -14,6 +14,8 @@ Installation
 
 [HERE](http://vimeo.com/60895953) you can find a screencast of the install process.
 
+NOTE: the install just got a lot easier, after install the first logged in user is automatically put in w2a_root so just install the plugin and access /yourapp/web2admin.
+
  - Download the [plugin installer](https://github.com/rif/web2admin/raw/master/web2py.plugin.web2admin.w2p) and install it via the web2py interface.
  
 or
@@ -35,10 +37,12 @@ Install the plugin ;)
 
 - If a user is in the w2a_manager group then it has all permissions for all tables except auth tables (no changing permissions for other users).
 
+The first logged in user that executes the web2admin code will be automatically placed in w2a_root group.
+
 Give fine-grained permissions to particular users for specific tables:
  - Create the following permissions (w2a_read, w2a_create, w2a_select, w2a_edit, w2a_delete, w2a_export) for the desired tables and authorized users. If a user is in w2a_root group it has a special controller (permissions) for adding/removing permissions to the users (you can still perform this through regular appadmin).
  
-Access http://localhost:8000/yourapp/plugin_web2admin
+Access http://localhost:8000/yourapp/web2admin or http://localhost:8000/yourapp/plugin_web2admin
 
 ## Configuration
 

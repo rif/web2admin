@@ -72,7 +72,7 @@ def master_search():
         count = dbset(reduce(lambda a,b: a|b,parts)).count() if parts else 0
         if count>0:
             tables_containing_query.append((table, count))
-    from simplejson import dumps
+    from gluon.contrib.simplejson import dumps
     return dumps([dict(id=t._tablename,text=t._tablename + ' (%d)' % c) for t, c in tables_containing_query])
 
 @auth.requires_membership('w2a_root')
